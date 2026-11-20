@@ -1,64 +1,269 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineWeekend | Filmes para maratonar</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+body {
+  background: #101010;
+  color: white;
+  font-family: Arial, sans-serif;
+}
 
-<header>
-    <h1 class="logo">CINE<span>WEEKEND</span></h1>
+.topo {
+  height: 75px;
+  background: #080808;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
 
-    <nav>
-        <a href="#inicio">Início</a>
-        <a href="#filmes">Filmes</a>
-        <a href="#favoritos">Favoritos</a>
-    </nav>
+.topo h1 {
+  color: #e50914;
+  font-size: 27px;
+  font-weight: 900;
+}
 
-    <input type="text" id="pesquisa" placeholder="Buscar filmes...">
-</header>
+.topo nav {
+  display: flex;
+  gap: 25px;
+}
 
-<section class="banner" id="inicio">
-    <div class="banner-content">
-        <h2>SEU PRÓXIMO FILME ESTÁ AQUI!</h2>
-        <p>Prepare a pipoca e escolha sua próxima maratona.</p>
-        <button onclick="carregarPopulares()">Explorar filmes</button>
-    </div>
-</section>
+.topo a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
 
-<main>
-    <section id="filmes">
-        <h2>🎬 Filmes populares</h2>
+.topo a:hover {
+  color: #e50914;
+}
 
-        <div class="categorias" id="categorias"></div>
+#pesquisa {
+  background: #252525;
+  border: 1px solid #444;
+  border-radius: 5px;
+  color: white;
+  padding: 12px;
+  width: 220px;
+  outline: none;
+}
 
-        <div class="filmes" id="listaFilmes">
-            Carregando filmes...
-        </div>
-    </section>
+.banner {
+  min-height: 330px;
+  display: flex;
+  align-items: center;
+  padding: 50px 6%;
+  background:
+    linear-gradient(90deg, #101010 10%, transparent 100%),
+    linear-gradient(0deg, #101010, transparent 80%),
+    url("https://image.tmdb.org/t/p/original/8bRIfPGDnmWgdy65LO8xtdcFmFP.jpg")
+    center/cover;
+}
 
-    <section id="favoritos">
-        <h2>❤️ Meus favoritos</h2>
-        <div class="filmes" id="listaFavoritos"></div>
-    </section>
-</main>
+.banner span {
+  color: #e50914;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
 
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <button class="fechar" onclick="fecharModal()">X</button>
-        <div id="detalhes"></div>
-    </div>
-</div>
+.banner h2 {
+  font-size: 42px;
+  margin: 15px 0;
+}
 
-<footer>
-    <h2>CINEWEEKEND</h2>
-    <p>Seu final de semana merece bons filmes!</p>
-    <small>Dados de filmes: TMDB</small>
-</footer>
+.banner p {
+  color: #ddd;
+  max-width: 400px;
+  line-height: 1.5;
+}
 
-<script src="app.js"></script>
-</body>
-</html>
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  gap: 30px;
+  padding: 35px 5%;
+  align-items: start;
+}
+
+.catalogo h2,
+.filtros h2 {
+  margin-bottom: 22px;
+}
+
+.filmes {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 22px 15px;
+}
+
+.filme {
+  cursor: pointer;
+  transition: transform .25s;
+  min-width: 0;
+}
+
+.filme:hover {
+  transform: scale(1.06);
+}
+
+.filme img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 7px;
+  background: #252525;
+}
+
+.filme h3 {
+  font-size: 14px;
+  margin-top: 9px;
+}
+
+.filme p {
+  color: #aaa;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.filtros {
+  background: #1c1c1c;
+  padding: 22px 18px;
+  border-radius: 8px;
+  position: sticky;
+  top: 95px;
+}
+
+.genero {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: #ccc;
+  border: none;
+  padding: 12px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .2s;
+}
+
+.genero:hover,
+.genero.ativo {
+  background: #e50914;
+  color: white;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  background: #000c;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-conteudo {
+  position: relative;
+  background: #202020;
+  border-radius: 10px;
+  padding: 30px;
+  width: min(600px, 100%);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.fechar {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: #e50914;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+}
+
+#detalhes img {
+  width: 130px;
+  float: left;
+  margin: 0 20px 15px 0;
+  border-radius: 7px;
+}
+
+#detalhes p {
+  color: #ccc;
+  line-height: 1.6;
+  margin-top: 15px;
+}
+
+#detalhes a {
+  display: inline-block;
+  background: #e50914;
+  color: white;
+  padding: 12px 18px;
+  margin-top: 18px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+@media (max-width: 950px) {
+  .filmes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .topo {
+    height: auto;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 18px;
+  }
+
+  .topo nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  #pesquisa {
+    width: 160px;
+  }
+
+  .banner h2 {
+    font-size: 30px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 25px 15px;
+  }
+
+  .filtros {
+    position: static;
+    order: -1;
+  }
+
+  #lista-generos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .genero {
+    width: auto;
+  }
+
+  .filmes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

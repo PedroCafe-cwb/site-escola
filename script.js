@@ -1,220 +1,193 @@
-
 const API_KEY = "SUA_CHAVE_TMDB";
-const API = "https://api.themoviedb.org/3";
+const BASE = "https://api.themoviedb.org/3";
 const IMG = "https://image.tmdb.org/t/p/w500";
 
-let filmes = [];
+const lista = document.getElementById("lista-filmes");
+const generos = document.getElementById("lista-generos");
+const pesquisa = document.getElementById("pesquisa");
+const modal = document.getElementById("modal");
 
-let favoritos = JSON.parse(
-    localStorage.getItem("cineweekend") || "[]"
-);
+let generoSelecionado = null;
+let filmesAtuais = [];
 
-// Buscar dados na API
-async function buscarAPI(url) {
-    const resposta = await fetch(
-        `${API}${url}${url.includes("?") ? "&" : "?"}api_key=${API_KEY}&language=pt-BR`
-    );
-
-    if (!resposta.ok) {
-        throw new Error("Erro ao buscar filmes.");
-    }
-
-    return resposta.json();
+async function buscar(url) {
+  const resposta = await fetch(url);
+  if (!resposta.ok) throw new Error("Erro ao carregar filmes");
+  return resposta.json();
 }
 
-// Filmes populares
-async function carregarPopulares() {
-    try {
-        const dados = await buscarAPI("/movie/popular");
-        filmes = dados.results;
-        mostrarFilmes(filmes);
-    } catch (erro) {
-        document.getElementById("listaFilmes").textContent =
-            "Erro ao carregar. Confira sua chave da API.";
-    }
+async function carregarGeneros() {
+  const dados = await buscar(
+    `${BASE}/genre/movie/list?api_key=${API_KEY}&language=pt-BR`
+  );
+
+  generos.innerHTML = "";
+
+  criarBotaoGenero("Todos", null);
+
+  dados.genres.forEach(genero => {
+    criarBotaoGenero(genero.name, genero.id);
+  });
 }
 
-// Mostrar filmes
-function mostrarFilmes(lista) {
-    const area = document.getElementById("listaFilmes");
+function criarBotaoGenero(nome, id) {
+  const botao = document.createElement("button");
+  botao.className = "genero";
+  botao.textContent = nome;
 
-    area.innerHTML = "";
+  if (id === generoSelecionado) {
+    botao.classList.add("ativo");
+  }
 
-    lista.forEach(filme => {
-        const salvo = favoritos.includes(filme.id);
+  botao.onclick = () => {
+    generoSelecionado = id;
+    carregarFilmes();
+  };
 
-        area.innerHTML += `
-            <div class="card">
-                <img
-                    src="${filme.poster_path ? IMG + filme.poster_path : ""}"
-                    alt="${filme.title}"
-                    onclick="abrirDetalhes(${filme.id})"
-                >
+  generos.appendChild(botao);
+}
 
-                <div class="card-info">
-                    <h3>${filme.title}</h3>
+async function carregarFilmes() {
+  try {
+    let url;
 
-                    <div class="nota">
-                        ⭐ ${filme.vote_average.toFixed(1)}
-                    </div>
+    if (generoSelecionado) {
+      url = `${BASE}/discover/movie?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&with_genres=${generoSelecionado}`;
+    } else {
+      url = `${BASE}/movie/popular?api_key=${API_KEY}&language=pt-BR`;
+    }
 
-                    <button onclick="favoritar(${filme.id})">
-                        ${salvo ? "❤️ Salvo" : "♡ Favoritar"}
-                    </button>
+    const dados = await buscar(url);
+    filmesAtuais = dados.results;
 
-                    <button onclick="abrirDetalhes(${filme.id})">
-                        Ver detalhes
-                    </button>
-                </div>
-            </div>
-        `;
+    mostrarFilmes(filmesAtuais);
+    atualizarGeneros();
+  } catch (erro) {
+    lista.textContent = "Não foi possível carregar os filmes.";
+  }
+}
+
+function atualizarGeneros() {
+  generos.innerHTML = "";
+  criarBotaoGenero("Todos", null);
+
+  buscar(`${BASE}/genre/movie/list?api_key=${API_KEY}&language=pt-BR`)
+    .then(dados => {
+      dados.genres.forEach(genero => {
+        criarBotaoGenero(genero.name, genero.id);
+      });
     });
 }
 
-// Pesquisa global
-document.getElementById("pesquisa")
-.addEventListener("input", async function() {
-    const termo = this.value.trim();
+function mostrarFilmes(filmes) {
+  lista.innerHTML = "";
+
+  if (!filmes.length) {
+    lista.textContent = "Nenhum filme encontrado.";
+    return;
+  }
+
+  filmes.forEach(filme => {
+    const card = document.createElement("article");
+    card.className = "filme";
+
+    const imagem = document.createElement("img");
+    imagem.src = filme.poster_path
+      ? IMG + filme.poster_path
+      : "https://placehold.co/300x450/222/fff?text=Sem+poster";
+    imagem.alt = filme.title || "Filme";
+
+    const titulo = document.createElement("h3");
+    titulo.textContent = filme.title || "Sem título";
+
+    const nota = document.createElement("p");
+    nota.textContent = "★ " + (filme.vote_average || 0).toFixed(1);
+
+    card.append(imagem, titulo, nota);
+    card.onclick = () => abrirDetalhes(filme.id);
+
+    lista.appendChild(card);
+  });
+}
+
+async function abrirDetalhes(id) {
+  try {
+    const filme = await buscar(
+      `${BASE}/movie/${id}?api_key=${API_KEY}&language=pt-BR`
+    );
+
+    const titulo = document.createElement("h2");
+    titulo.textContent = filme.title;
+
+    const imagem = document.createElement("img");
+    imagem.src = filme.poster_path
+      ? IMG + filme.poster_path
+      : "https://placehold.co/300x450/222/fff?text=Sem+poster";
+
+    const descricao = document.createElement("p");
+    descricao.textContent = filme.overview || "Sinopse não disponível.";
+
+    const nota = document.createElement("p");
+    nota.textContent = "Nota: ★ " + filme.vote_average.toFixed(1);
+
+    const trailer = document.createElement("a");
+    trailer.textContent = "Ver trailer";
+    trailer.href = `https://www.youtube.com/results?search_query=${encodeURIComponent(filme.title + " trailer")}`;
+    trailer.target = "_blank";
+    trailer.rel = "noopener noreferrer";
+
+    const detalhes = document.getElementById("detalhes");
+    detalhes.replaceChildren(titulo, imagem, descricao, nota, trailer);
+
+    modal.style.display = "flex";
+  } catch (erro) {
+    alert("Não foi possível abrir os detalhes do filme.");
+  }
+}
+
+document.getElementById("fechar-modal").onclick = () => {
+  modal.style.display = "none";
+};
+
+modal.onclick = evento => {
+  if (evento.target === modal) {
+    modal.style.display = "none";
+  }
+};
+
+let temporizador;
+
+pesquisa.addEventListener("input", () => {
+  clearTimeout(temporizador);
+
+  temporizador = setTimeout(async () => {
+    const termo = pesquisa.value.trim();
 
     if (termo.length < 2) {
-        carregarPopulares();
-        return;
+      carregarFilmes();
+      return;
     }
 
     try {
-        const dados = await buscarAPI(
-            "/search/movie?query=" + encodeURIComponent(termo)
-        );
+      const dados = await buscar(
+        `${BASE}/search/movie?api_key=${API_KEY}&language=pt-BR&query=${encodeURIComponent(termo)}`
+      );
 
-        mostrarFilmes(dados.results);
+      mostrarFilmes(dados.results);
     } catch (erro) {
-        console.error(erro);
+      lista.textContent = "Erro ao pesquisar filmes.";
     }
+  }, 350);
 });
 
-// Categorias
-async function carregarCategorias() {
-    const dados = await buscarAPI("/genre/movie/list");
-    const area = document.getElementById("categorias");
-
-    area.innerHTML = `
-        <button onclick="carregarPopulares()">Todos</button>
-    `;
-
-    dados.genres.forEach(genero => {
-        area.innerHTML += `
-            <button onclick="filtrarCategoria(${genero.id})">
-                ${genero.name}
-            </button>
-        `;
-    });
-}
-
-async function filtrarCategoria(id) {
-    try {
-        const dados = await buscarAPI(
-            `/discover/movie?with_genres=${id}`
-        );
-
-        mostrarFilmes(dados.results);
-    } catch (erro) {
-        console.error(erro);
-    }
-}
-
-// Favoritos
-function favoritar(id) {
-    if (favoritos.includes(id)) {
-        favoritos = favoritos.filter(f => f !== id);
-    } else {
-        favoritos.push(id);
-    }
-
-    localStorage.setItem(
-        "cineweekend",
-        JSON.stringify(favoritos)
-    );
-
-    mostrarFilmes(filmes);
-    carregarFavoritos();
-}
-
-async function carregarFavoritos() {
-    const area = document.getElementById("listaFavoritos");
-    area.innerHTML = "";
-
-    for (const id of favoritos) {
-        try {
-            const filme = await buscarAPI(`/movie/${id}`);
-
-            area.innerHTML += `
-                <div class="card">
-                    <img src="${IMG + filme.poster_path}">
-                    <div class="card-info">
-                        <h3>${filme.title}</h3>
-                        <button onclick="favoritar(${filme.id})">
-                            Remover ❤️
-                        </button>
-                    </div>
-                </div>
-            `;
-        } catch (erro) {
-            console.error(erro);
-        }
-    }
-}
-
-// Detalhes do filme e trailer
-async function abrirDetalhes(id) {
-    try {
-        const filme = await buscarAPI(`/movie/${id}`);
-        const videos = await buscarAPI(`/movie/${id}/videos`);
-
-        const trailer = videos.results.find(
-            v => v.site === "YouTube" && v.type === "Trailer"
-        );
-
-        document.getElementById("detalhes").innerHTML = `
-            <h2>${filme.title}</h2>
-
-            <img src="${IMG + filme.poster_path}">
-
-            <p>⭐ Nota: ${filme.vote_average.toFixed(1)}</p>
-
-            <p>${filme.overview || "Sinopse não disponível."}</p>
-
-            <p>Data: ${filme.release_date || "Não informada"}</p>
-
-            <p>Duração: ${filme.runtime || "Não informada"} minutos</p>
-
-            ${trailer ? `
-                <a href="https://www.youtube.com/watch?v=${trailer.key}"
-                   target="_blank" rel="noopener noreferrer">
-                    <button>▶ Assistir trailer</button>
-                </a>
-            ` : "<p>Trailer não disponível.</p>"}
-        `;
-
-        document.getElementById("modal").style.display = "flex";
-
-    } catch (erro) {
-        alert("Não foi possível carregar os detalhes.");
-    }
-}
-
-function fecharModal() {
-    document.getElementById("modal").style.display = "none";
-}
-
-// Iniciar site
 async function iniciar() {
-    try {
-        await carregarCategorias();
-        await carregarPopulares();
-        await carregarFavoritos();
-    } catch (erro) {
-        console.error(erro);
-    }
+  if (API_KEY === "SUA_CHAVE_TMDB") {
+    lista.textContent = "Adicione sua chave da API do TMDB no arquivo app.js.";
+    return;
+  }
+
+  await carregarGeneros();
+  await carregarFilmes();
 }
 
 iniciar();

@@ -1,63 +1,49 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CineWeekend | Filmes para maratonar</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineWeekend - Filmes</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header>
-    <h1 class="logo">CINE<span>WEEKEND</span></h1>
-
-    <nav>
-        <a href="#inicio">Início</a>
-        <a href="#filmes">Filmes</a>
-        <a href="#favoritos">Favoritos</a>
-    </nav>
-
-    <input type="text" id="pesquisa" placeholder="Buscar filmes...">
+<header class="topo">
+  <h1>CINEWEEKEND</h1>
+  <nav>
+    <a href="#">Início</a>
+    <a href="#catalogo">Catálogo</a>
+    <a href="#favoritos">Minha lista</a>
+  </nav>
+  <input id="pesquisa" type="text" placeholder="Buscar filmes...">
 </header>
 
-<section class="banner" id="inicio">
-    <div class="banner-content">
-        <h2>SEU PRÓXIMO FILME ESTÁ AQUI!</h2>
-        <p>Prepare a pipoca e escolha sua próxima maratona.</p>
-        <button onclick="carregarPopulares()">Explorar filmes</button>
-    </div>
+<section class="banner">
+  <div>
+    <span>SEU CINEMA EM CASA</span>
+    <h2>Prepare a pipoca.<br>Escolha seu filme.</h2>
+    <p>Os melhores filmes para assistir no fim de semana.</p>
+  </div>
 </section>
 
-<main>
-    <section id="filmes">
-        <h2>🎬 Filmes populares</h2>
+<main class="layout">
+  <section class="catalogo" id="catalogo">
+    <h2>Catálogo de filmes</h2>
+    <div id="lista-filmes" class="filmes"></div>
+  </section>
 
-        <div class="categorias" id="categorias"></div>
-
-        <div class="filmes" id="listaFilmes">
-            Carregando filmes...
-        </div>
-    </section>
-
-    <section id="favoritos">
-        <h2>❤️ Meus favoritos</h2>
-        <div class="filmes" id="listaFavoritos"></div>
-    </section>
+  <aside class="filtros">
+    <h2>Gêneros</h2>
+    <div id="lista-generos"></div>
+  </aside>
 </main>
 
 <div id="modal" class="modal">
-    <div class="modal-content">
-        <button class="fechar" onclick="fecharModal()">X</button>
-        <div id="detalhes"></div>
-    </div>
+  <div class="modal-conteudo">
+    <button id="fechar-modal" class="fechar">✕</button>
+    <div id="detalhes"></div>
+  </div>
 </div>
-
-<footer>
-    <h2>CINEWEEKEND</h2>
-    <p>Seu final de semana merece bons filmes!</p>
-    <small>Dados de filmes: TMDB</small>
-</footer>
 
 <script src="app.js"></script>
 </body>
