@@ -1,42 +1,68 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia de Filmes e Séries</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineGuia - Seu Guia de Filmes</title>
+    <!-- Link para ícones (usaremos para a busca e filtros se quiser) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <h1>🍿 Guia do Fim de Semana</h1>
-    <p>Clique em um filme para ver a sinopse completa</p>
-    
-    <div class="controles">
-      <input type="text" id="campo-busca" placeholder="🔍 Buscar filme ou série...">
-      <div id="botoes-filtro" class="filtros">
-        <!-- O JavaScript vai criar os botões aqui automaticamente -->
-      </div>
+    <!-- CABEÇALHO MINIMALISTA -->
+    <header class="header-principal">
+        <div class="container-header">
+            <h1 class="logo">Cine<span class="destaque">Guia</span></h1>
+            
+            <div class="controles-header">
+                <div class="barra-busca">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="campo-busca" placeholder="Buscar filmes, séries ou gêneros...">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- SEÇÃO HERO (BANNER DE DESTAQUE) - Gerado pelo JS -->
+        <section id="hero-destaque" class="hero"></section>
+
+        <!-- SEÇÃO DE FILTROS E GRADE -->
+        <section class="container-conteudo">
+            <div class="barra-filtros">
+                <h2>Explorar Categorias</h2>
+                <div id="botoes-filtro" class="filtros-grade">
+                    <!-- Botões gerados pelo JS -->
+                </div>
+            </div>
+
+            <!-- GRADE DE FILMES MODERNA -->
+            <div id="catalogo" class="grade-filmes">
+                <!-- Cards gerados pelo JS -->
+            </div>
+        </section>
+    </main>
+
+    <!-- JANELA MODAL DE DETALHES -->
+    <div id="modal-filme" class="modal escondido">
+        <div class="modal-conteudo">
+            <button id="fechar-modal" class="btn-fechar">✖</button>
+            <div class="modal-layout">
+                <img id="modal-capa" src="" alt="Capa do filme">
+                <div class="modal-detalhes">
+                    <div class="modal-meta">
+                        <span id="modal-genero" class="tag-genero"></span>
+                        <span id="modal-nota" class="nota-grande"></span>
+                    </div>
+                    <h2 id="modal-titulo"></h2>
+                    <p id="modal-sinopse"></p>
+                </div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <!-- O catálogo de filmes será gerado aqui -->
-  <main id="catalogo"></main>
-
-  <!-- Janela (Modal) de detalhes -->
-  <div id="modal-filme" class="modal escondido">
-    <div class="modal-conteudo">
-      <button id="fechar-modal" class="btn-fechar">✖</button>
-      <img id="modal-capa" src="" alt="Capa do filme">
-      <div class="modal-detalhes">
-        <span id="modal-genero" class="tag-genero"></span>
-        <span id="modal-nota" class="nota"></span>
-        <h2 id="modal-titulo"></h2>
-        <p id="modal-sinopse"></p>
-      </div>
-    </div>
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
