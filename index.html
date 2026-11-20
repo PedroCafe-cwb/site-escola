@@ -2,107 +2,135 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="CineWeekend - Descubra filmes para maratonar.">
-  <title>CineWeekend | Seu cinema em casa</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWeekend | Seu cinema em casa</title>
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<header class="topbar">
-  <a class="logo" href="#">CINE<span>WEEKEND</span></a>
+    <header class="topbar">
+        <a href="#" class="logo">CINE<span>WEEKEND</span></a>
 
-  <nav>
-    <a href="#inicio">Início</a>
-    <a href="#catalogo">Filmes</a>
-    <a href="#favoritos">Minha lista</a>
-  </nav>
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#catalogo">Filmes</a>
+            <a href="#favoritos">Minha lista</a>
+        </nav>
 
-  <div class="search-box">
-    <span>⌕</span>
-    <input id="pesquisa" type="search" placeholder="Buscar filmes...">
-  </div>
-</header>
-
-<section class="hero" id="inicio">
-  <div class="hero-content">
-    <span class="tag">SEU FIM DE SEMANA COMEÇA AQUI</span>
-    <h1>UMA NOITE.<br>VÁRIOS FILMES.</h1>
-    <p>Prepare a pipoca e descubra histórias incríveis para assistir.</p>
-    <button id="destaque-btn" class="btn-primary">Explorar catálogo</button>
-  </div>
-  <div class="hero-bottom">
-    <span>DESCUBRA · ESCOLHA · MARATONE</span>
-  </div>
-</section>
-
-<main class="main-layout" id="catalogo">
-  <section class="content">
-    <div class="section-heading">
-      <div>
-        <span class="eyebrow">ESCOLHA SEU PRÓXIMO FILME</span>
-        <h2>Catálogo <span>completo</span></h2>
-      </div>
-      <span id="contador" class="counter"></span>
-    </div>
-
-    <div class="quick-categories" id="categorias-rapidas">
-      <button class="quick active" data-type="popular">Populares</button>
-      <button class="quick" data-type="top">Mais bem avaliados</button>
-      <button class="quick" data-type="upcoming">Em breve</button>
-    </div>
-
-    <div id="lista-filmes" class="movie-grid">
-      <p class="loading">Carregando filmes...</p>
-    </div>
-
-    <button id="carregar-mais" class="load-more">CARREGAR MAIS FILMES</button>
-
-    <section id="favoritos" class="favorites-section">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow">SEUS ESCOLHIDOS</span>
-          <h2>Minha <span>lista</span></h2>
+        <div class="search-box">
+            <span>⌕</span>
+            <input type="search" id="pesquisa" placeholder="Buscar filmes...">
         </div>
-      </div>
-      <div id="lista-favoritos" class="movie-grid">
-        <p class="empty">Seus filmes favoritos aparecerão aqui.</p>
-      </div>
+    </header>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <span class="tag">SEU FIM DE SEMANA COMEÇA AQUI</span>
+
+            <h1>UMA NOITE.<br>VÁRIOS FILMES.</h1>
+
+            <p>
+                Prepare a pipoca e descubra histórias incríveis
+                para assistir no fim de semana.
+            </p>
+
+            <button class="btn-primary" id="explorar">
+                EXPLORAR CATÁLOGO
+            </button>
+        </div>
     </section>
-  </section>
 
-  <aside class="sidebar">
-    <div class="filter-header">
-      <span class="eyebrow">PERSONALIZE SUA SESSÃO</span>
-      <h2>Gêneros</h2>
-      <p>Qual é o seu clima hoje?</p>
+    <main class="main-layout" id="catalogo">
+
+        <section class="content">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">ESCOLHA SEU PRÓXIMO FILME</span>
+                    <h2>Catálogo <span>completo</span></h2>
+                </div>
+
+                <span id="contador" class="counter"></span>
+            </div>
+
+            <div class="quick-categories">
+                <button class="quick active" data-type="popular">
+                    Populares
+                </button>
+
+                <button class="quick" data-type="top">
+                    Mais avaliados
+                </button>
+
+                <button class="quick" data-type="upcoming">
+                    Em breve
+                </button>
+            </div>
+
+            <div id="lista-filmes" class="movie-grid">
+                <p class="loading">Carregando filmes...</p>
+            </div>
+
+            <button id="carregar-mais" class="load-more">
+                CARREGAR MAIS FILMES
+            </button>
+
+            <section id="favoritos" class="favorites-section">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">SEUS ESCOLHIDOS</span>
+                        <h2>Minha <span>lista</span></h2>
+                    </div>
+                </div>
+
+                <div id="lista-favoritos" class="movie-grid">
+                    <p class="empty">Seus favoritos aparecerão aqui.</p>
+                </div>
+            </section>
+
+        </section>
+
+        <aside class="sidebar">
+
+            <div class="filter-header">
+                <span class="eyebrow">PERSONALIZE SUA SESSÃO</span>
+                <h2>Gêneros</h2>
+                <p>Qual é o seu clima hoje?</p>
+            </div>
+
+            <div id="lista-generos" class="genre-list">
+                <p class="loading">Carregando gêneros...</p>
+            </div>
+
+            <div class="sidebar-note">
+                <span>🍿</span>
+                <h3>Hora de maratonar!</h3>
+                <p>
+                    Escolha um gênero e encontre
+                    seu próximo filme favorito.
+                </p>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <button id="fechar-modal" class="close-modal">✕</button>
+            <div id="detalhes"></div>
+        </div>
     </div>
 
-    <div id="lista-generos" class="genre-list">
-      <p class="loading">Carregando...</p>
-    </div>
+    <footer>
+        <a href="#" class="logo">CINE<span>WEEKEND</span></a>
+        <p>Feito para quem ama uma boa maratona. © 2026</p>
+    </footer>
 
-    <div class="sidebar-note">
-      <span>🍿</span>
-      <h3>Hora de maratonar!</h3>
-      <p>Escolha um gênero e encontre seu próximo filme favorito.</p>
-    </div>
-  </aside>
-</main>
+    <script src="script.js"></script>
 
-<div id="modal" class="modal" aria-hidden="true">
-  <div class="modal-content">
-    <button id="fechar-modal" class="close-modal" aria-label="Fechar">✕</button>
-    <div id="detalhes"></div>
-  </div>
-</div>
-
-<footer>
-  <a class="logo" href="#">CINE<span>WEEKEND</span></a>
-  <p>Feito para quem ama uma boa maratona. © 2026</p>
-</footer>
-
-<script src="app.js"></script>
 </body>
 </html>
