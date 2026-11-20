@@ -296,3 +296,4 @@ if (modal) {
 carregarGeneros();
 mostrarFilmes();
 mostrarFavoritos();
+
