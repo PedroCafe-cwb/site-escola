@@ -37,7 +37,7 @@ const filmes = [
     genero: "Romance",
     nota: 7.9,
     duracao: "3h 14min",
-    imagem: "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8ESamvb6a8.jpg",
+    imagem: "https://www.impawards.com/1997/titanic_ver1_xlg.jpg",
     descricao: "Durante a viagem inaugural do Titanic, Jack e Rose, de mundos diferentes, vivem uma intensa história de amor a bordo do famoso navio."
   },
   {
@@ -57,7 +57,7 @@ const filmes = [
     genero: "Aventura",
     nota: 8.2,
     duracao: "2h 7min",
-    imagem: "https://image.tmdb.org/t/p/w500/b1xCNnyrPebIc7EWNZIaDFq5gK.jpg",
+    imagem: "https://upload.wikimedia.org/wikipedia/pt/e/e7/Jurassic_Park_poster.jpg",
     descricao: "Cientistas conseguem trazer dinossauros de volta à vida em um parque temático. Porém, uma falha de segurança transforma a visita em uma luta pela sobrevivência."
   },
   {

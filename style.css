@@ -179,3 +179,57 @@
         max-width: 180px;
     }
 }
+
+/* Catálogo responsivo - CineWeekend */
+
+#lista-filmes {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.filme-card {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.filme-poster {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 2 / 3;
+    overflow: hidden;
+    position: relative;
+}
+
+.filme-poster img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.filme-info {
+    overflow-wrap: break-word;
+}
+
+@media (min-width: 1200px) {
+    #lista-filmes {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    #lista-filmes {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 550px) {
+    #lista-filmes {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
