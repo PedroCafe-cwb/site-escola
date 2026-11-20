@@ -10,53 +10,27 @@
 
   <header>
     <h1>🍿 Guia do Fim de Semana</h1>
-    <p>Minhas melhores recomendações para maratonar</p>
+    <p>Clique em um filme para ver a sinopse completa</p>
+    <input type="text" id="campo-busca" placeholder="🔍 Buscar filme ou série...">
   </header>
 
-  <main>
-    <!-- Categoria 1 -->
-    <section class="categoria">
-      <h2>🔥 Ação e Ficção</h2>
-      <div class="grade-filmes">
-        
-        <article class="card">
-          <img src="https://placehold.co/300x420/1e293b/ffffff?text=Capa+Filme+1" alt="Capa do Filme">
-          <div class="info">
-            <span class="nota">⭐ 9.2</span>
-            <h3>Homem-Aranha: Através do Aranhaverso</h3>
-            <p>Miles Morales embarca em uma jornada épica pelo multiverso enfrentando uma nova ameaça.</p>
-          </div>
-        </article>
+  <!-- O JavaScript vai preencher este espaço -->
+  <main id="catalogo"></main>
 
-        <article class="card">
-          <img src="https://placehold.co/300x420/1e293b/ffffff?text=Capa+Filme+2" alt="Capa do Filme">
-          <div class="info">
-            <span class="nota">⭐ 8.8</span>
-            <h3>Duna: Parte Dois</h3>
-            <p>Paul Atreides se une aos Fremen em uma guerra de vingança contra os conspiradores.</p>
-          </div>
-        </article>
-
+  <!-- Janela (Modal) que abre ao clicar no filme -->
+  <div id="modal-filme" class="modal escondido">
+    <div class="modal-conteudo">
+      <button id="fechar-modal" class="btn-fechar">✖</button>
+      <img id="modal-capa" src="" alt="Capa do filme">
+      <div class="modal-detalhes">
+        <span id="modal-genero" class="tag-genero"></span>
+        <span id="modal-nota" class="nota"></span>
+        <h2 id="modal-titulo"></h2>
+        <p id="modal-sinopse"></p>
       </div>
-    </section>
+    </div>
+  </div>
 
-    <!-- Categoria 2 -->
-    <section class="categoria">
-      <h2>😂 Comédia</h2>
-      <div class="grade-filmes">
-        
-        <article class="card">
-          <img src="https://placehold.co/300x420/1e293b/ffffff?text=Capa+Serie+1" alt="Capa da Série">
-          <div class="info">
-            <span class="nota">⭐ 9.0</span>
-            <h3>Brooklyn Nine-Nine</h3>
-            <p>O cotidiano hilário de uma delegacia de polícia no Brooklyn com um detetive talentoso e imaturo.</p>
-          </div>
-        </article>
-
-      </div>
-    </section>
-  </main>
-
+  <script src="script.js"></script>
 </body>
 </html>
