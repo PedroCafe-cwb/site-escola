@@ -1,42 +1,64 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guia de Filmes e Séries</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineWeekend | Filmes para maratonar</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <header>
-    <h1>🍿 Guia do Fim de Semana</h1>
-    <p>Clique em um filme para ver a sinopse completa</p>
-    
-    <div class="controles">
-      <input type="text" id="campo-busca" placeholder="🔍 Buscar filme ou série...">
-      <div id="botoes-filtro" class="filtros">
-        <!-- Os botões de filtro aparecem aqui automaticamente -->
-      </div>
+<header>
+    <h1 class="logo">CINE<span>WEEKEND</span></h1>
+
+    <nav>
+        <a href="#inicio">Início</a>
+        <a href="#filmes">Filmes</a>
+        <a href="#favoritos">Favoritos</a>
+    </nav>
+
+    <input type="text" id="pesquisa" placeholder="Buscar filmes...">
+</header>
+
+<section class="banner" id="inicio">
+    <div class="banner-content">
+        <h2>SEU PRÓXIMO FILME ESTÁ AQUI!</h2>
+        <p>Prepare a pipoca e escolha sua próxima maratona.</p>
+        <button onclick="carregarPopulares()">Explorar filmes</button>
     </div>
-  </header>
+</section>
 
-  <!-- O catálogo exibe todos os filmes logo na tela inicial -->
-  <main id="catalogo"></main>
+<main>
+    <section id="filmes">
+        <h2>🎬 Filmes populares</h2>
 
-  <!-- Janela (Modal) de detalhes ao clicar no filme -->
-  <div id="modal-filme" class="modal escondido">
-    <div class="modal-conteudo">
-      <button id="fechar-modal" class="btn-fechar">✖</button>
-      <img id="modal-capa" src="" alt="Capa do filme">
-      <div class="modal-detalhes">
-        <span id="modal-genero" class="tag-genero"></span>
-        <span id="modal-nota" class="nota"></span>
-        <h2 id="modal-titulo"></h2>
-        <p id="modal-sinopse"></p>
-      </div>
+        <div class="categorias" id="categorias"></div>
+
+        <div class="filmes" id="listaFilmes">
+            Carregando filmes...
+        </div>
+    </section>
+
+    <section id="favoritos">
+        <h2>❤️ Meus favoritos</h2>
+        <div class="filmes" id="listaFavoritos"></div>
+    </section>
+</main>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <button class="fechar" onclick="fecharModal()">X</button>
+        <div id="detalhes"></div>
     </div>
-  </div>
+</div>
 
-  <script src="script.js"></script>
+<footer>
+    <h2>CINEWEEKEND</h2>
+    <p>Seu final de semana merece bons filmes!</p>
+    <small>Dados de filmes: TMDB</small>
+</footer>
+
+<script src="app.js"></script>
 </body>
 </html>

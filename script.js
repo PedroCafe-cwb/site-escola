@@ -1,234 +1,220 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+const API_KEY = "SUA_CHAVE_TMDB";
+const API = "https://api.themoviedb.org/3";
+const IMG = "https://image.tmdb.org/t/p/w500";
+
+let filmes = [];
+
+let favoritos = JSON.parse(
+    localStorage.getItem("cineweekend") || "[]"
+);
+
+// Buscar dados na API
+async function buscarAPI(url) {
+    const resposta = await fetch(
+        `${API}${url}${url.includes("?") ? "&" : "?"}api_key=${API_KEY}&language=pt-BR`
+    );
+
+    if (!resposta.ok) {
+        throw new Error("Erro ao buscar filmes.");
+    }
+
+    return resposta.json();
 }
 
-body {
-  background-color: #0f172a;
-  color: #f8fafc;
-  padding-bottom: 50px;
+// Filmes populares
+async function carregarPopulares() {
+    try {
+        const dados = await buscarAPI("/movie/popular");
+        filmes = dados.results;
+        mostrarFilmes(filmes);
+    } catch (erro) {
+        document.getElementById("listaFilmes").textContent =
+            "Erro ao carregar. Confira sua chave da API.";
+    }
 }
 
-header {
-  text-align: center;
-  padding: 40px 20px;
-  background-color: #1e293b;
-  border-bottom: 2px solid #334155;
+// Mostrar filmes
+function mostrarFilmes(lista) {
+    const area = document.getElementById("listaFilmes");
+
+    area.innerHTML = "";
+
+    lista.forEach(filme => {
+        const salvo = favoritos.includes(filme.id);
+
+        area.innerHTML += `
+            <div class="card">
+                <img
+                    src="${filme.poster_path ? IMG + filme.poster_path : ""}"
+                    alt="${filme.title}"
+                    onclick="abrirDetalhes(${filme.id})"
+                >
+
+                <div class="card-info">
+                    <h3>${filme.title}</h3>
+
+                    <div class="nota">
+                        ⭐ ${filme.vote_average.toFixed(1)}
+                    </div>
+
+                    <button onclick="favoritar(${filme.id})">
+                        ${salvo ? "❤️ Salvo" : "♡ Favoritar"}
+                    </button>
+
+                    <button onclick="abrirDetalhes(${filme.id})">
+                        Ver detalhes
+                    </button>
+                </div>
+            </div>
+        `;
+    });
 }
 
-header h1 {
-  font-size: 2.2rem;
-  color: #38bdf8;
+// Pesquisa global
+document.getElementById("pesquisa")
+.addEventListener("input", async function() {
+    const termo = this.value.trim();
+
+    if (termo.length < 2) {
+        carregarPopulares();
+        return;
+    }
+
+    try {
+        const dados = await buscarAPI(
+            "/search/movie?query=" + encodeURIComponent(termo)
+        );
+
+        mostrarFilmes(dados.results);
+    } catch (erro) {
+        console.error(erro);
+    }
+});
+
+// Categorias
+async function carregarCategorias() {
+    const dados = await buscarAPI("/genre/movie/list");
+    const area = document.getElementById("categorias");
+
+    area.innerHTML = `
+        <button onclick="carregarPopulares()">Todos</button>
+    `;
+
+    dados.genres.forEach(genero => {
+        area.innerHTML += `
+            <button onclick="filtrarCategoria(${genero.id})">
+                ${genero.name}
+            </button>
+        `;
+    });
 }
 
-header p {
-  color: #94a3b8;
-  margin-top: 8px;
+async function filtrarCategoria(id) {
+    try {
+        const dados = await buscarAPI(
+            `/discover/movie?with_genres=${id}`
+        );
+
+        mostrarFilmes(dados.results);
+    } catch (erro) {
+        console.error(erro);
+    }
 }
 
-.controles {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
+// Favoritos
+function favoritar(id) {
+    if (favoritos.includes(id)) {
+        favoritos = favoritos.filter(f => f !== id);
+    } else {
+        favoritos.push(id);
+    }
+
+    localStorage.setItem(
+        "cineweekend",
+        JSON.stringify(favoritos)
+    );
+
+    mostrarFilmes(filmes);
+    carregarFavoritos();
 }
 
-#campo-busca {
-  padding: 12px 16px;
-  width: 100%;
-  max-width: 400px;
-  border-radius: 8px;
-  border: 1px solid #334155;
-  background-color: #0f172a;
-  color: #f8fafc;
-  font-size: 1rem;
-  outline: none;
+async function carregarFavoritos() {
+    const area = document.getElementById("listaFavoritos");
+    area.innerHTML = "";
+
+    for (const id of favoritos) {
+        try {
+            const filme = await buscarAPI(`/movie/${id}`);
+
+            area.innerHTML += `
+                <div class="card">
+                    <img src="${IMG + filme.poster_path}">
+                    <div class="card-info">
+                        <h3>${filme.title}</h3>
+                        <button onclick="favoritar(${filme.id})">
+                            Remover ❤️
+                        </button>
+                    </div>
+                </div>
+            `;
+        } catch (erro) {
+            console.error(erro);
+        }
+    }
 }
 
-#campo-busca:focus {
-  border-color: #38bdf8;
+// Detalhes do filme e trailer
+async function abrirDetalhes(id) {
+    try {
+        const filme = await buscarAPI(`/movie/${id}`);
+        const videos = await buscarAPI(`/movie/${id}/videos`);
+
+        const trailer = videos.results.find(
+            v => v.site === "YouTube" && v.type === "Trailer"
+        );
+
+        document.getElementById("detalhes").innerHTML = `
+            <h2>${filme.title}</h2>
+
+            <img src="${IMG + filme.poster_path}">
+
+            <p>⭐ Nota: ${filme.vote_average.toFixed(1)}</p>
+
+            <p>${filme.overview || "Sinopse não disponível."}</p>
+
+            <p>Data: ${filme.release_date || "Não informada"}</p>
+
+            <p>Duração: ${filme.runtime || "Não informada"} minutos</p>
+
+            ${trailer ? `
+                <a href="https://www.youtube.com/watch?v=${trailer.key}"
+                   target="_blank" rel="noopener noreferrer">
+                    <button>▶ Assistir trailer</button>
+                </a>
+            ` : "<p>Trailer não disponível.</p>"}
+        `;
+
+        document.getElementById("modal").style.display = "flex";
+
+    } catch (erro) {
+        alert("Não foi possível carregar os detalhes.");
+    }
 }
 
-/* Botões de Filtro */
-.filtros {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
+function fecharModal() {
+    document.getElementById("modal").style.display = "none";
 }
 
-.btn-filtro {
-  background-color: #334155;
-  color: #f8fafc;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: background-color 0.2s;
+// Iniciar site
+async function iniciar() {
+    try {
+        await carregarCategorias();
+        await carregarPopulares();
+        await carregarFavoritos();
+    } catch (erro) {
+        console.error(erro);
+    }
 }
 
-.btn-filtro:hover {
-  background-color: #475569;
-}
-
-.btn-filtro.ativo {
-  background-color: #38bdf8;
-  color: #0f172a;
-  font-weight: bold;
-}
-
-/* Grade do Catálogo */
-main {
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
-}
-
-.card {
-  background-color: #1e293b;
-  border-radius: 12px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-}
-
-.card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(56, 189, 248, 0.2);
-}
-
-.card img {
-  width: 100%;
-  height: 320px;
-  object-fit: cover;
-  display: block;
-}
-
-.info {
-  padding: 16px;
-}
-
-.nota {
-  display: inline-block;
-  background-color: #334155;
-  color: #fbbf24;
-  font-weight: bold;
-  font-size: 0.85rem;
-  padding: 4px 8px;
-  border-radius: 6px;
-  margin-bottom: 8px;
-}
-
-.tag-genero {
-  display: inline-block;
-  background-color: #0284c7;
-  color: #ffffff;
-  font-size: 0.8rem;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 6px;
-  margin-right: 6px;
-}
-
-.info h3 {
-  font-size: 1.05rem;
-  line-height: 1.3;
-}
-
-/* Modal */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  z-index: 1000;
-}
-
-.escondido {
-  display: none;
-}
-
-.modal-conteudo {
-  background-color: #1e293b;
-  max-width: 700px;
-  width: 100%;
-  border-radius: 16px;
-  overflow: hidden;
-  display: flex;
-  position: relative;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
-  animation: aparecer 0.25s ease;
-}
-
-@keyframes aparecer {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.modal-conteudo img {
-  width: 260px;
-  object-fit: cover;
-}
-
-.modal-detalhes {
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.modal-detalhes h2 {
-  font-size: 1.6rem;
-  margin: 12px 0;
-  color: #38bdf8;
-}
-
-.modal-detalhes p {
-  color: #cbd5e1;
-  line-height: 1.6;
-  font-size: 1rem;
-}
-
-.btn-fechar {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  background-color: #334155;
-  color: #f8fafc;
-  border: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  font-size: 1rem;
-  cursor: pointer;
-}
-
-.btn-fechar:hover {
-  background-color: #ef4444;
-}
-
-@media (max-width: 600px) {
-  .modal-conteudo {
-    flex-direction: column;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  .modal-conteudo img {
-    width: 100%;
-    height: 280px;
-  }
-}
+iniciar();
