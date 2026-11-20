@@ -85,14 +85,14 @@ body {
 
 /* --- HERO (BANNER) --- */
 .hero {
-    height: 70vh; /* Ocupa 70% da altura da tela */
+    height: 380px; /* Reduz a altura para não ocupar o ecrã todo */
     width: 100%;
     background-size: cover;
-    background-position: center 20%;
+    background-position: center top; /* Foca na parte superior da imagem */
     position: relative;
     display: flex;
     align-items: flex-end;
-    margin-bottom: -100px; /* Sobreposição para a grade subir */
+    margin-bottom: -50px; /* Pequena sobreposição elegante para a grade */
 }
 
 /* Gradiente escuro sobre o banner para dar leitura e fundir com o fundo */
