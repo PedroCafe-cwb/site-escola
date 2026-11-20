@@ -11,13 +11,19 @@
   <header>
     <h1>🍿 Guia do Fim de Semana</h1>
     <p>Clique em um filme para ver a sinopse completa</p>
-    <input type="text" id="campo-busca" placeholder="🔍 Buscar filme ou série...">
+    
+    <div class="controles">
+      <input type="text" id="campo-busca" placeholder="🔍 Buscar filme ou série...">
+      <div id="botoes-filtro" class="filtros">
+        <!-- O JavaScript vai criar os botões aqui automaticamente -->
+      </div>
+    </div>
   </header>
 
-  <!-- O JavaScript vai preencher este espaço -->
+  <!-- O catálogo de filmes será gerado aqui -->
   <main id="catalogo"></main>
 
-  <!-- Janela (Modal) que abre ao clicar no filme -->
+  <!-- Janela (Modal) de detalhes -->
   <div id="modal-filme" class="modal escondido">
     <div class="modal-conteudo">
       <button id="fechar-modal" class="btn-fechar">✖</button>

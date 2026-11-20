@@ -28,8 +28,15 @@ header p {
   margin-top: 8px;
 }
 
-#campo-busca {
+.controles {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+#campo-busca {
   padding: 12px 16px;
   width: 100%;
   max-width: 400px;
@@ -43,6 +50,35 @@ header p {
 
 #campo-busca:focus {
   border-color: #38bdf8;
+}
+
+/* Estilos dos botões de filtro */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-filtro {
+  background-color: #334155;
+  color: #f8fafc;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-filtro:hover {
+  background-color: #475569;
+}
+
+.btn-filtro.ativo {
+  background-color: #38bdf8;
+  color: #0f172a;
+  font-weight: bold;
 }
 
 main {
@@ -184,7 +220,6 @@ main {
   background-color: #ef4444;
 }
 
-/* Ajuste para celular */
 @media (max-width: 600px) {
   .modal-conteudo {
     flex-direction: column;

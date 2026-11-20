@@ -1,64 +1,65 @@
 const filmes = [
   {
     titulo: "Homem-Aranha: Através do Aranhaverso",
-    genero: "Animação / Ação",
+    genero: "Animação",
     nota: "9.2",
-    capa: "https://placehold.co/300x450/1d4ed8/ffffff?text=Aranhaverso",
+    capa: "https://m.media-amazon.com/images/M/MV5BMzI0NmVkMjEtYmY4MS00ZDM3LWIxMWQtOWQ4ZTQ5YmJmOWM4XkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_FMjpg_UX1000_.jpg",
     sinopse: "Miles Morales retorna para o próximo capítulo da saga do Aranhaverso. Após se reencontrar com Gwen Stacy, ele é catapultado através do Multiverso, onde encontra uma equipe de Pessoas-Aranha encarregada de proteger sua própria existência."
   },
   {
     titulo: "Duna: Parte Dois",
-    genero: "Ficção Científica",
+    genero: "Ficção",
     nota: "8.8",
-    capa: "https://placehold.co/300x450/b45309/ffffff?text=Duna+Parte+2",
+    capa: "https://m.media-amazon.com/images/M/MV5BN2QyZGU4ZDctOWMzMy00NTc5LThlOGQtODhmNDI1NmY5YzAwXkEyXkFqcGdeQXVyMDM2NDM2MQ@@._V1_FMjpg_UX1000_.jpg",
     sinopse: "Paul Atreides se une a Chani e aos Fremen enquanto busca vingança contra os conspiradores que destruíram sua família. Enfrentando uma escolha entre o amor de sua vida e o destino do universo, ele tenta evitar um futuro terrível."
   },
   {
     titulo: "Interestelar",
-    genero: "Ficção / Drama",
+    genero: "Ficção",
     nota: "9.4",
-    capa: "https://placehold.co/300x450/0f172a/38bdf8?text=Interestelar",
+    capa: "https://m.media-amazon.com/images/M/MV5BZjdkOTU3MDktN2IxOS00OGEyLWFmMjktY2FiMmZkNWIyODZiXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
     sinopse: "Com a Terra chegando ao limite de seus recursos naturais, uma equipe de exploradores viaja através de um buraco de minhoca no espaço na tentativa de garantir a sobrevivência da humanidade."
   },
   {
     titulo: "Brooklyn Nine-Nine",
     genero: "Comédia",
     nota: "9.0",
-    capa: "https://placehold.co/300x450/047857/ffffff?text=Brooklyn+99",
+    capa: "https://m.media-amazon.com/images/M/MV5BNzVkYWY4NzYtMWFlZi00YzkwLThhZDktNWExYjQzYWJmMWNlXkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_FMjpg_UX1000_.jpg",
     sinopse: "Jake Peralta é um detetive brilhante, mas imaturo, que nunca precisou se preocupar em seguir as regras. Tudo muda quando um novo capitão rígido e exigente assume o comando da 99ª delegacia do Brooklyn."
   },
   {
-    titulo: "Stranger Things",
-    genero: "Suspense / Ficção",
-    nota: "8.7",
-    capa: "https://placehold.co/300x450/991b1b/ffffff?text=Stranger+Things",
-    sinopse: "Quando um garoto desaparece na pequena cidade de Hawkins nos anos 80, seus amigos, sua família e o chefe de polícia local descobrem um mistério envolvendo experimentos secretos, forças sobrenaturais e uma garota com poderes."
+    titulo: "Invocação do Mal",
+    genero: "Terror",
+    nota: "7.5",
+    capa: "https://m.media-amazon.com/images/M/MV5BOTUwODM5MTctZjMzMi00OTk4LThlNTMtMzMyOThlYTU0NDY3XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
+    sinopse: "Ed e Lorraine Warren, investigadores paranormais de renome mundial, são chamados para ajudar uma família terrorizada por uma presença somcura em uma fazenda isolada."
   },
   {
     titulo: "Batman: O Cavaleiro das Trevas",
-    genero: "Ação / Suspense",
+    genero: "Ação",
     nota: "9.5",
-    capa: "https://placehold.co/300x450/18181b/a1a1aa?text=O+Cavaleiro+das+Trevas",
+    capa: "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UX1000_.jpg",
     sinopse: "Com a ajuda do tenente Jim Gordon e do promotor Harvey Dent, Batman tem tudo para banir o crime de Gotham City. Mas logo surge o Coringa, uma mente criminosa que mergulha a cidade no caos."
   },
   {
-    titulo: "A Viagem de Chihiro",
-    genero: "Animação / Fantasia",
-    nota: "9.1",
-    capa: "https://placehold.co/300x450/6d28d9/ffffff?text=Viagem+de+Chihiro",
-    sinopse: "Durante a mudança para uma nova cidade, Chihiro e seus pais entram por engano em um mundo mágico habitado por deuses e espíritos. Quando seus pais são transformados em porcos, ela precisa trabalhar para libertá-los."
+    titulo: "Corra!",
+    genero: "Terror",
+    nota: "7.8",
+    capa: "https://m.media-amazon.com/images/M/MV5BMjA3NzQ5NzMxOV5BMl5BanBnXkFtZTgwMDgzNjQ1MTI@._V1_FMjpg_UX1000_.jpg",
+    sinopse: "Um jovem fotógrafo afro-americano visita a propriedade da família de sua namorada branca no fim de semana, onde descobre um segredo aterrorizante por trás do comportamento estranho dos moradores."
   },
   {
-    titulo: "De Volta para o Futuro",
-    genero: "Aventura / Comédia",
-    nota: "8.9",
-    capa: "https://placehold.co/300x450/c2410c/ffffff?text=De+Volta+ao+Futuro",
-    sinopse: "O adolescente Marty McFly é acidentalmente enviado trinta anos no passado em um carro DeLorean que viaja no tempo, inventado por seu amigo excêntrico, o cientista Doc Brown."
+    titulo: "Se Beber, Não Case!",
+    genero: "Comédia",
+    nota: "7.7",
+    capa: "https://m.media-amazon.com/images/M/MV5BNGQwZjg5YmYtY2VkNC00NzliLTljYTctNzI5NmU3MjE2ODQzXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
+    sinopse: "Dois dias antes de seu casamento, Doug e três amigos viajam para Las Vegas para uma despedida de solteiro inesquecível. Na manhã seguinte, os amigos acordam com fortes dores de cabeça e nenhuma memória da noite anterior."
   }
 ];
 
 const catalogo = document.getElementById("catalogo");
 const campoBusca = document.getElementById("campo-busca");
+const containerFiltros = document.getElementById("botoes-filtro");
 
 // Elementos do Modal
 const modal = document.getElementById("modal-filme");
@@ -69,9 +70,16 @@ const modalNota = document.getElementById("modal-nota");
 const modalTitulo = document.getElementById("modal-titulo");
 const modalSinopse = document.getElementById("modal-sinopse");
 
+let categoriaAtual = "Todos";
+
 // Função para desenhar os cards na tela
 function mostrarFilmes(lista) {
   catalogo.innerHTML = "";
+
+  if (lista.length === 0) {
+    catalogo.innerHTML = `<p style="grid-column: 1 / -1; text-align: center; color: #94a3b8; padding: 40px;">Nenhum filme encontrado.</p>`;
+    return;
+  }
 
   lista.forEach((filme) => {
     const card = document.createElement("article");
@@ -85,7 +93,7 @@ function mostrarFilmes(lista) {
       </div>
     `;
 
-    // Evento de clique para abrir o modal com a descrição
+    // Evento de clique para abrir o modal
     card.addEventListener("click", () => {
       modalCapa.src = filme.capa;
       modalGenero.textContent = filme.genero;
@@ -99,27 +107,60 @@ function mostrarFilmes(lista) {
   });
 }
 
+// Criar botões de filtro dinamicamente
+function criarBotoesFiltro() {
+  // Extrai os gêneros únicos e adiciona "Todos" no início
+  const generos = ["Todos", ...new Set(filmes.map(f => f.genero))];
+
+  containerFiltros.innerHTML = "";
+
+  generos.forEach(genero => {
+    const botao = document.createElement("button");
+    botao.textContent = genero;
+    botao.classList.add("btn-filtro");
+    if (genero === "Todos") botao.classList.add("ativo");
+
+    botao.addEventListener("click", () => {
+      // Remove a classe ativo de todos os botões e coloca no clicado
+      document.querySelectorAll(".btn-filtro").forEach(b => b.classList.remove("ativo"));
+      botao.classList.add("ativo");
+
+      categoriaAtual = genero;
+      filtrarEExibir();
+    });
+
+    containerFiltros.appendChild(botao);
+  });
+}
+
+// Função combinada de Filtro por Gênero + Busca por Texto
+function filtrarEExibir() {
+  const termo = campoBusca.value.toLowerCase();
+
+  const filtrados = filmes.filter(filme => {
+    const bateGenero = categoriaAtual === "Todos" || filme.genero === categoriaAtual;
+    const bateTexto = filme.titulo.toLowerCase().includes(termo) || filme.genero.toLowerCase().includes(termo);
+    return bateGenero && bateTexto;
+  });
+
+  mostrarFilmes(filtrados);
+}
+
+// Evento da barra de busca
+campoBusca.addEventListener("input", filtrarEExibir);
+
 // Fechar modal no botão X
 btnFechar.addEventListener("click", () => {
   modal.classList.add("escondido");
 });
 
-// Fechar modal clicando fora da caixa escura
+// Fechar modal clicando fora da caixa
 modal.addEventListener("click", (evento) => {
   if (evento.target === modal) {
     modal.classList.add("escondido");
   }
 });
 
-// Filtro da barra de pesquisa
-campoBusca.addEventListener("input", () => {
-  const termo = campoBusca.value.toLowerCase();
-  const filtrados = filmes.filter((filme) =>
-    filme.titulo.toLowerCase().includes(termo) ||
-    filme.genero.toLowerCase().includes(termo)
-  );
-  mostrarFilmes(filtrados);
-});
-
-// Inicia exibindo todos os filmes
+// Inicialização
+criarBotoesFiltro();
 mostrarFilmes(filmes);
