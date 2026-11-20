@@ -1,116 +1,461 @@
 
-/* ===== CORREÇÃO DO CATÁLOGO CINEWEEKEND ===== */
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700;800&display=swap');
 
-#lista-filmes {
+/* ===== CONFIGURAÇÕES GERAIS ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0b0b0d;
+    color: #f5f5f5;
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+button, input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+:root {
+    --vermelho: #e50914;
+    --fundo: #0b0b0d;
+    --card: #17171b;
+    --cinza: #a4a4aa;
+}
+
+/* ===== CABEÇALHO ===== */
+
+.topbar {
+    width: 100%;
+    min-height: 76px;
+    padding: 15px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    background: #101013;
+    border-bottom: 1px solid #242428;
+    position: relative;
+    z-index: 10;
+}
+
+.logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 29px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: white;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: var(--vermelho);
+}
+
+.topbar nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.topbar nav a {
+    color: #c7c7cb;
+    font-size: 14px;
+    transition: color .2s;
+}
+
+.topbar nav a:hover {
+    color: var(--vermelho);
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #202024;
+    border: 1px solid #343439;
+    border-radius: 8px;
+    padding: 10px 13px;
+    width: 230px;
+}
+
+.search-box span {
+    color: var(--vermelho);
+    font-size: 22px;
+}
+
+.search-box input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    width: 100%;
+    font-size: 13px;
+}
+
+.search-box input::placeholder {
+    color: #888;
+}
+
+/* ===== BANNER PRINCIPAL ===== */
+
+.hero {
+    min-height: 440px;
+    display: flex;
+    align-items: center;
+    padding: 65px 7%;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg, #09090b 0%, rgba(9,9,11,.96) 35%, rgba(9,9,11,.55) 75%, rgba(9,9,11,.35) 100%),
+        linear-gradient(0deg, #0b0b0d 0%, transparent 35%),
+        url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1600') center 45% / cover;
+}
+
+.hero-content {
+    max-width: 650px;
+    position: relative;
+    z-index: 1;
+}
+
+.tag,
+.eyebrow {
+    display: inline-block;
+    color: var(--vermelho);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(48px, 7vw, 76px);
+    line-height: .98;
+    font-weight: 800;
+    margin: 20px 0;
+    letter-spacing: 1px;
+}
+
+.hero p {
+    color: #c3c3c7;
+    max-width: 460px;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.btn-primary {
+    background: var(--vermelho);
+    color: white;
+    border: none;
+    padding: 15px 23px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    border-radius: 5px;
+    transition: .2s;
+}
+
+.btn-primary:hover {
+    background: #b80710;
+    transform: translateY(-2px);
+}
+
+/* ===== ÁREA PRINCIPAL ===== */
+
+.main-layout {
+    max-width: 1500px;
+    margin: auto;
+    padding: 55px 5%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 22px;
+    grid-template-columns: minmax(0, 1fr) 255px;
+    gap: 38px;
+}
+
+.content {
+    min-width: 0;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-bottom: 23px;
+    gap: 15px;
+}
+
+.section-heading h2,
+.filter-header h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 34px;
+    margin-top: 5px;
+    font-weight: 700;
+}
+
+.section-heading h2 span {
+    color: var(--vermelho);
+}
+
+.counter {
+    color: var(--cinza);
+    font-size: 12px;
+}
+
+/* ===== CATEGORIAS RÁPIDAS ===== */
+
+.quick-categories {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.quick {
+    background: #1b1b20;
+    border: 1px solid #333339;
+    color: #bbb;
+    padding: 9px 16px;
+    border-radius: 5px;
+    font-size: 12px;
+    transition: .2s;
+}
+
+.quick:hover,
+.quick.active {
+    background: var(--vermelho);
+    color: white;
+    border-color: var(--vermelho);
+}
+
+/* ===== CATÁLOGO DE FILMES ===== */
+
+#lista-filmes,
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 20px;
     width: 100%;
     align-items: start;
 }
 
 .filme-card {
-    background: #171719;
-    border-radius: 12px;
+    background: var(--card);
+    border-radius: 9px;
     overflow: hidden;
-    transition: transform 0.3s ease;
     min-width: 0;
+    transition: transform .25s, box-shadow .25s;
 }
 
 .filme-card:hover {
     transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,.35);
 }
 
 .filme-poster {
     width: 100%;
-    height: 260px;
+    aspect-ratio: 2 / 3;
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    background: #202024;
 }
 
 .filme-poster img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
+    object-fit: cover;
+    transition: transform .4s;
+}
+
+.filme-card:hover .filme-poster img {
+    transform: scale(1.05);
 }
 
 .filme-nota {
     position: absolute;
     top: 10px;
     left: 10px;
-    background: #e50914;
+    background: var(--vermelho);
     color: white;
     padding: 6px 9px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: bold;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 800;
 }
 
 .filme-info {
     padding: 12px;
+    overflow-wrap: break-word;
 }
 
 .filme-info h3 {
     color: white;
-    font-size: 16px;
-    margin: 0 0 8px;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 7px;
 }
 
 .filme-info p {
-    color: #aaa;
-    font-size: 13px;
+    color: var(--cinza);
+    font-size: 11px;
     margin-bottom: 12px;
 }
 
 .filme-info button,
 .detalhe-filme button {
-    background: #e50914;
+    background: #29292e;
     color: white;
-    border: none;
-    padding: 9px 12px;
-    border-radius: 6px;
-    cursor: pointer;
+    border: 1px solid #44444b;
+    padding: 8px 10px;
+    border-radius: 5px;
+    font-size: 11px;
+    transition: .2s;
 }
 
 .filme-info button:hover,
 .detalhe-filme button:hover {
-    background: #b20710;
+    background: var(--vermelho);
+    border-color: var(--vermelho);
 }
 
-/* Filtros de gênero */
-
-#lista-generos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+.loading,
+.empty {
+    color: var(--cinza);
+    font-size: 13px;
+    padding: 15px 0;
 }
 
-#lista-generos button {
-    background: #252529;
+.load-more {
+    display: block;
+    margin: 30px auto 60px;
+    background: transparent;
     color: white;
-    border: 1px solid #38383d;
-    border-radius: 20px;
-    padding: 9px 12px;
-    cursor: pointer;
-    font-size: 12px;
+    border: 1px solid #555;
+    padding: 13px 24px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: .2s;
 }
 
+.load-more:hover {
+    background: var(--vermelho);
+    border-color: var(--vermelho);
+}
+
+/* ===== FAVORITOS ===== */
+
+.favorites-section {
+    margin-top: 55px;
+    padding-top: 35px;
+    border-top: 1px solid #29292e;
+}
+
+#lista-favoritos:empty {
+    display: none;
+}
+
+/* ===== LATERAL DE GÊNEROS ===== */
+
+.sidebar {
+    background: #141417;
+    border: 1px solid #28282d;
+    border-radius: 10px;
+    padding: 23px;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+}
+
+.filter-header h2 {
+    font-size: 30px;
+}
+
+.filter-header p {
+    color: var(--cinza);
+    font-size: 12px;
+    margin-top: 7px;
+    line-height: 1.5;
+}
+
+.genre-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 24px;
+}
+
+.genre-list button,
+#lista-generos button {
+    background: #202024;
+    color: #c7c7cb;
+    border: 1px solid #303036;
+    border-radius: 6px;
+    padding: 11px 13px;
+    text-align: left;
+    font-size: 12px;
+    transition: .2s;
+}
+
+.genre-list button:hover,
+.genre-list button.genero-ativo,
 #lista-generos button:hover,
 #lista-generos button.genero-ativo {
-    background: #e50914;
-    border-color: #e50914;
+    background: var(--vermelho);
+    color: white;
+    border-color: var(--vermelho);
 }
 
-/* Janela de detalhes */
+.sidebar-note {
+    margin-top: 30px;
+    padding: 18px;
+    background: #201316;
+    border: 1px solid #482025;
+    border-radius: 8px;
+}
 
-#modal {
+.sidebar-note span {
+    font-size: 27px;
+}
+
+.sidebar-note h3 {
+    font-size: 14px;
+    margin: 10px 0 7px;
+}
+
+.sidebar-note p {
+    color: #aaa;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+/* ===== JANELA DE DETALHES ===== */
+
+.modal {
     display: none;
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0,0,0,.88);
     align-items: center;
     justify-content: center;
     padding: 20px;
@@ -120,55 +465,168 @@
     background: #19191d;
     color: white;
     width: 100%;
-    max-width: 750px;
-    max-height: 85vh;
+    max-width: 780px;
+    max-height: 88vh;
     overflow-y: auto;
-    border-radius: 14px;
+    border: 1px solid #36363b;
+    border-radius: 12px;
     padding: 25px;
-}
-
-.detalhe-filme {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 25px;
-}
-
-.detalhe-filme img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.detalhe-filme h2 {
-    color: white;
-}
-
-.detalhe-filme p {
-    color: #ccc;
-    line-height: 1.6;
-}
-
-.nota-detalhe {
-    color: #ffd700 !important;
-    font-weight: bold;
+    position: relative;
 }
 
 .close-modal {
     display: block;
     margin-left: auto;
+    margin-bottom: 12px;
     background: transparent;
     color: white;
     border: none;
-    font-size: 25px;
+    font-size: 23px;
     cursor: pointer;
 }
 
-@media (max-width: 600px) {
-    #lista-filmes {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+.close-modal:hover {
+    color: var(--vermelho);
+}
+
+.detalhe-filme {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    gap: 25px;
+}
+
+.detalhe-filme img {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.detalhe-filme h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.detalhe-filme h3 {
+    margin: 18px 0 8px;
+    font-size: 16px;
+}
+
+.detalhe-filme p {
+    color: #c5c5ca;
+    font-size: 13px;
+    line-height: 1.8;
+    margin-bottom: 8px;
+}
+
+.detalhe-filme .nota-detalhe {
+    color: #ffd15c;
+    font-weight: 800;
+    font-size: 16px;
+}
+
+/* ===== RODAPÉ ===== */
+
+footer {
+    background: #111114;
+    border-top: 1px solid #29292e;
+    padding: 30px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+footer p {
+    color: #888;
+    font-size: 12px;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+
+@media (max-width: 1150px) {
+    #lista-filmes,
+    .movie-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 
-    .filme-poster {
-        height: 230px;
+    .main-layout {
+        grid-template-columns: minmax(0, 1fr) 220px;
+        gap: 22px;
+    }
+}
+
+@media (max-width: 850px) {
+    .topbar {
+        flex-wrap: wrap;
+    }
+
+    .main-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        position: static;
+        order: -1;
+    }
+
+    .genre-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .genre-list button {
+        text-align: center;
+    }
+
+    #lista-filmes,
+    .movie-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 550px) {
+    .topbar {
+        gap: 15px;
+        padding: 15px 4%;
+    }
+
+    .topbar nav {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .search-box {
+        width: 180px;
+    }
+
+    .hero {
+        min-height: 380px;
+        padding: 45px 6%;
+    }
+
+    .hero h1 {
+        font-size: 49px;
+    }
+
+    .main-layout {
+        padding: 35px 4%;
+    }
+
+    #lista-filmes,
+    .movie-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 13px;
+    }
+
+    .filme-info {
+        padding: 9px;
+    }
+
+    .filme-info h3 {
+        font-size: 13px;
     }
 
     .detalhe-filme {
@@ -178,58 +636,9 @@
     .detalhe-filme img {
         max-width: 180px;
     }
-}
 
-/* Catálogo responsivo - CineWeekend */
-
-#lista-filmes {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.filme-card {
-    width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-.filme-poster {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 2 / 3;
-    overflow: hidden;
-    position: relative;
-}
-
-.filme-poster img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.filme-info {
-    overflow-wrap: break-word;
-}
-
-@media (min-width: 1200px) {
-    #lista-filmes {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 900px) {
-    #lista-filmes {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 550px) {
-    #lista-filmes {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    footer {
+        flex-direction: column;
+        text-align: center;
     }
 }
