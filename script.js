@@ -15,34 +15,41 @@ const filmes = [
     sinopse: "Após os eventos devastadores de Vingadores: Guerra Infinita, o universo destruído pelos atos de Thanos conta com a ajuda dos Vingadores remanescentes para reverter a situação."
   },
   {
-    titulo: "Gladiador",
+    titulo: "A Origem (Inception)",
     genero: "Ação",
-    nota: "8.5",
-    capa: "https://br.pinterest.com/pin/gladiador--181551428720767838/",
-    sinopse: "Um general romano traído busca vingança contra o imperador corrupto que assassinou sua família, abrindo caminho para lutar na arena como gladiador."
+    nota: "8.8",
+    capa: "https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg",
+    sinopse: "Um ladrão que rouba segredos corporativos através do uso da tecnologia de compartilhamento de sonhos recebe a tarefa inversa de plantar uma ideia na mente de um diretor executivo."
+  },
+  {
+    titulo: "Mad Max: Estrada da Fúria",
+    genero: "Ação",
+    nota: "8.1",
+    capa: "https://upload.wikimedia.org/wikipedia/en/6/6e/Mad_Max_Fury_Road.jpg",
+    sinopse: "Em um mundo pós-apocalíptico, Max se junta a Imperatriz Furiosa para fugir de um líder de culto e seu exército em um caminhão-tanque blindado pelo deserto."
   },
 
   // --- ANIMAÇÃO ---
-  {
-    titulo: "Homem-Aranha: Através do Aranhaverso",
-    genero: "Animação",
-    nota: "9.2",
-    capa: "https://www.google.com/imgres?q=homem%20aranha%20atrav%C3%A9s%20do%20aranhaverso%20capa%5D&imgurl=https%3A%2F%2Fwww.sonypictures.com.br%2Fsites%2Fbrazil%2Ffiles%2F2023-06%2F1400x2100.jpg&imgrefurl=https%3A%2F%2Fwww.sonypictures.com.br%2Ffilmes%2Fhomem-aranha-no-aranhaverso&docid=057_2eqvTCmLwM&tbnid=tDnsH7Wu3KYwLM&vet=12ahUKEwjomv792JaYAxVItpUCHflAKTAQnPAOegQIPhAA..i&w=1400&h=2100&hcb=2&ved=2ahUKEwjomv792JaYAxVItpUCHflAKTAQnPAOegQIPhAA",
-    sinopse: "Miles Morales retorna para o próximo capítulo da saga do Aranhaverso. Após se reencontrar com Gwen Stacy, ele é catapultado através do Multiverso, onde encontra uma equipe de Pessoas-Aranha."
-  },
-  {
-    titulo: "A Viagem de Chihiro",
-    genero: "Animação",
-    nota: "9.1",
-    capa: "https://m.media-amazon.com/images/M/MV5BMjlmZmIxMTItZmRjYy00ZjAxLWE5ZjAtZGVjNWFiZTI5NzU2XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
-    sinopse: "Durante a mudança para uma nova cidade, Chihiro e seus pais entram por engano em um mundo mágico habitado por espíritos. Quando seus pais viram porcos, ela precisa trabalhar para salvá-los."
-  },
   {
     titulo: "Toy Story",
     genero: "Animação",
     nota: "8.3",
     capa: "https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_FMjpg_UX1000_.jpg",
     sinopse: "Os brinquedos de um garoto ganham vida quando os humanos não estão por perto, liderados por Woody, um caubói que sente seu posto ameaçado pela chegada de um novo brinquedo espacial, Buzz Lightyear."
+  },
+  {
+    titulo: "O Rei Leão",
+    genero: "Animação",
+    nota: "8.5",
+    capa: "https://upload.wikimedia.org/wikipedia/en/3/3d/The_Lion_King_poster.jpg",
+    sinopse: "O jovem príncipe leão Simba foge de seu reino após a morte de seu pai, mas anos depois precisa retornar para reclamar seu lugar de direito no trono."
+  },
+  {
+    titulo: "WALL·E",
+    genero: "Animação",
+    nota: "8.4",
+    capa: "https://upload.wikimedia.org/wikipedia/en/4/4c/WALL-E_poster.jpg",
+    sinopse: "Em um futuro distante, um pequeno robô coletor de lixo embarca inadvertidamente em uma jornada espacial que decidirá o destino da humanidade."
   },
 
   // --- FICÇÃO CIENTÍFICA ---
@@ -61,21 +68,14 @@ const filmes = [
     sinopse: "Paul Atreides se une a Chani e aos Fremen em busca de vingança contra os conspiradores que destruíram sua família, enfrentando escolhas cruciais para o futuro do universo."
   },
   {
-    titulo: "Matrix",
+    titulo: "De Volta para o Futuro",
     genero: "Ficção",
-    nota: "8.7",
-    capa: "https://m.media-amazon.com/images/M/MV5BNzQzOTk3OTAtNDQ0Zi00ZTVkLWI0MTEtMDllZjNkYzNjNTc4XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg",
-    sinopse: "Um hacker descobre que a realidade cotidiana é uma simulação controlada por máquinas inteligentes, juntando-se a um grupo rebelde para lutar pela liberdade humana."
+    nota: "8.5",
+    capa: "https://upload.wikimedia.org/wikipedia/en/d/d2/Back_to_the_Future.jpg",
+    sinopse: "O jovem Marty McFly é acidentalmente enviado trinta anos no passado em um carro DeLorean que viaja no tempo, inventado por seu amigo excêntrico, o cientista Doc Brown."
   },
 
   // --- COMÉDIA ---
-  {
-    titulo: "Brooklyn Nine-Nine",
-    genero: "Comédia",
-    nota: "9.0",
-    capa: "https://m.media-amazon.com/images/M/MV5BNzVkYWY4NzYtMWFlZi00YzkwLThhZDktNWExYjQzYWJmMWNlXkEyXkFqcGdeQXVyMzQ2MDI5NjU@._V1_FMjpg_UX1000_.jpg",
-    sinopse: "O cotidiano hilário de uma delegacia de polícia no Brooklyn liderada por um detetive talentoso e descontraído que precisa aprender a lidar com as novas regras de um rigoroso capitão."
-  },
   {
     titulo: "Se Beber, Não Case!",
     genero: "Comédia",
@@ -83,21 +83,42 @@ const filmes = [
     capa: "https://m.media-amazon.com/images/M/MV5BNGQwZjg5YmYtY2VkNC00NzliLTljYTctNzI5NmU3MjE2ODQzXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_FMjpg_UX1000_.jpg",
     sinopse: "Três amigos acordam em Las Vegas após uma despedida de solteiro sem lembrar de absolutamente nada e com o noivo desaparecido, precisando refazer os passos da noite anterior."
   },
+  {
+    titulo: "O Show de Truman",
+    genero: "Comédia",
+    nota: "8.2",
+    capa: "https://upload.wikimedia.org/wikipedia/en/c/cd/Trumanshow.jpg",
+    sinopse: "Um homem comum começa a desconfiar que sua vida aparentemente perfeita na verdade é um gigantesco reality show transmitido 24 horas por dia para o mundo inteiro."
+  },
+  {
+    titulo: "Superbad: É Hoje",
+    genero: "Comédia",
+    nota: "7.6",
+    capa: "https://upload.wikimedia.org/wikipedia/en/8/8b/Superbad_Poster.png",
+    sinopse: "Dois amigos inseparáveis tentam aproveitar ao máximo os últimos dias antes da formatura do ensino médio em uma noite cheia de imprevistos."
+  },
 
   // --- TERROR ---
   {
-    titulo: "Invocação do Mal",
+    titulo: "O Iluminado",
     genero: "Terror",
-    nota: "7.5",
-    capa: "https://m.media-amazon.com/images/M/MV5BOTUwODM5MTctZjMzMi00OTk4LThlNTMtMzMyOThlYTU0NDY3XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_FMjpg_UX1000_.jpg",
-    sinopse: "Investigadores paranormais famosos são chamados para ajudar uma família aterrorizada por uma presença sombria e malévola em sua nova fazenda isolada."
+    nota: "8.4",
+    capa: "https://upload.wikimedia.org/wikipedia/en/1/1d/The_Shining_%281980%29_U.S._release_poster_-_The_Tide_of_Terror_That_Swept_America_Is_Here.jpg",
+    sinopse: "Uma família se muda para um hotel isolado durante o inverno, onde uma presença sinistra influencia o pai à violência enquanto seu filho psíquico vê presságios terríveis."
   },
   {
-    titulo: "Corra!",
+    titulo: "Um Lugar Silencioso",
     genero: "Terror",
-    nota: "7.8",
-    capa: "https://m.media-amazon.com/images/M/MV5BMjA3NzQ5NzMxOV5BMl5BanBnXkFtZTgwMDgzNjQ1MTI@._V1_FMjpg_UX1000_.jpg",
-    sinopse: "Um jovem visita a propriedade da família de sua namorada e percebe que o comportamento excessivamente educado dos moradores esconde um segredo perturbador."
+    nota: "7.5",
+    capa: "https://upload.wikimedia.org/wikipedia/en/a/a0/A_Quiet_Place_film_poster.png",
+    sinopse: "Em um mundo pós-apocalíptico, uma família é forçada a viver em completo silêncio enquanto se esconde de monstros com audição ultrassensível."
+  },
+  {
+    titulo: "It: A Coisa",
+    genero: "Terror",
+    nota: "7.3",
+    capa: "https://upload.wikimedia.org/wikipedia/en/5/5a/It_%282017%29_poster.jpg",
+    sinopse: "Na cidade de Derry, sete jovens amigos se unem para enfrentar uma entidade maligna que assume a forma de um palhaço e se alimenta dos medos das crianças."
   }
 ];
 
@@ -128,8 +149,11 @@ function mostrarFilmes(lista) {
     const card = document.createElement("article");
     card.classList.add("card");
 
+    // Cria um pôster reserva automático caso algum link falhe no futuro
+    const capaReserva = `https://placehold.co/300x450/1e293b/38bdf8?text=${encodeURIComponent(filme.titulo)}`;
+
     card.innerHTML = `
-      <img src="${filme.capa}" alt="Capa de ${filme.titulo}">
+      <img src="${filme.capa}" alt="Capa de ${filme.titulo}" onerror="this.onerror=null; this.src='${capaReserva}';">
       <div class="info">
         <span class="nota">⭐ ${filme.nota}</span>
         <h3>${filme.titulo}</h3>
@@ -138,6 +162,7 @@ function mostrarFilmes(lista) {
 
     card.addEventListener("click", () => {
       modalCapa.src = filme.capa;
+      modalCapa.onerror = () => { modalCapa.src = capaReserva; };
       modalGenero.textContent = filme.genero;
       modalNota.textContent = `⭐ ${filme.nota}`;
       modalTitulo.textContent = filme.titulo;
