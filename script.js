@@ -18,7 +18,7 @@ const filmes = [
     titulo: "Gladiador",
     genero: "Ação",
     nota: "8.5",
-    capa: "https://m.media-amazon.com/images/M/MV5BMDliMmNhNDEtODUyOS00MjNlLTgxODEtN2U3NzIxMGVkZTA1XkEyXkFqcGdeQXVyNjU0OTQ0OTY@._V1_FMjpg_UX1000_.jpg",
+    capa: "https://br.pinterest.com/pin/gladiador--181551428720767838/",
     sinopse: "Um general romano traído busca vingança contra o imperador corrupto que assassinou sua família, abrindo caminho para lutar na arena como gladiador."
   },
 
@@ -27,7 +27,7 @@ const filmes = [
     titulo: "Homem-Aranha: Através do Aranhaverso",
     genero: "Animação",
     nota: "9.2",
-    capa: "https://m.media-amazon.com/images/M/MV5BMzI0NmVkMjEtYmY4MS00ZDM3LWIxMWQtOWQ4ZTQ5YmJmOWM4XkEyXkFqcGdeQXVyMTM1MTE1NDMx._V1_FMjpg_UX1000_.jpg",
+    capa: "https://www.google.com/imgres?q=homem%20aranha%20atrav%C3%A9s%20do%20aranhaverso%20capa%5D&imgurl=https%3A%2F%2Fwww.sonypictures.com.br%2Fsites%2Fbrazil%2Ffiles%2F2023-06%2F1400x2100.jpg&imgrefurl=https%3A%2F%2Fwww.sonypictures.com.br%2Ffilmes%2Fhomem-aranha-no-aranhaverso&docid=057_2eqvTCmLwM&tbnid=tDnsH7Wu3KYwLM&vet=12ahUKEwjomv792JaYAxVItpUCHflAKTAQnPAOegQIPhAA..i&w=1400&h=2100&hcb=2&ved=2ahUKEwjomv792JaYAxVItpUCHflAKTAQnPAOegQIPhAA",
     sinopse: "Miles Morales retorna para o próximo capítulo da saga do Aranhaverso. Após se reencontrar com Gwen Stacy, ele é catapultado através do Multiverso, onde encontra uma equipe de Pessoas-Aranha."
   },
   {
