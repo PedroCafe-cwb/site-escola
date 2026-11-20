@@ -37,7 +37,7 @@ const filmes = [
     genero: "Romance",
     nota: 7.9,
     duracao: "3h 14min",
-    imagem: "https://www.impawards.com/1997/titanic_ver1_xlg.jpg",
+    imagem: "https://www.originalfilmart.com/cdn/shop/products/titanic_1997_styleA_original_film_art_ff6e5718-c79d-4bfd-850b-1068970032f2_5000x.jpg?v=1668710472",
     descricao: "Durante a viagem inaugural do Titanic, Jack e Rose, de mundos diferentes, vivem uma intensa história de amor a bordo do famoso navio."
   },
   {
