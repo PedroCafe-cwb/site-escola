@@ -1,453 +1,298 @@
 
-const API_KEY = "SUA_CHAVE_TMDB";
+const filmes = [
+  {
+    id: 1,
+    titulo: "Interestelar",
+    ano: 2014,
+    genero: "Ficção científica",
+    nota: 8.7,
+    duracao: "2h 49min",
+    imagem: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    descricao: "Em um futuro em que a Terra está ficando inabitável, um grupo de astronautas parte em uma missão pelo espaço para encontrar um novo lar para a humanidade."
+  },
+  {
+    id: 2,
+    titulo: "A Origem",
+    ano: 2010,
+    genero: "Ação",
+    nota: 8.4,
+    duracao: "2h 28min",
+    imagem: "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+    descricao: "Dom Cobb é um especialista em invadir sonhos e roubar segredos. Ele recebe uma missão diferente: implantar uma ideia na mente de uma pessoa."
+  },
+  {
+    id: 3,
+    titulo: "Matrix",
+    ano: 1999,
+    genero: "Ficção científica",
+    nota: 8.2,
+    duracao: "2h 16min",
+    imagem: "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    descricao: "Um programador descobre que a realidade em que vive é uma simulação criada por máquinas e precisa lutar para libertar a humanidade."
+  },
+  {
+    id: 4,
+    titulo: "Titanic",
+    ano: 1997,
+    genero: "Romance",
+    nota: 7.9,
+    duracao: "3h 14min",
+    imagem: "https://image.tmdb.org/t/p/w500/9xjZS2rlVxm8SFx8ESamvb6a8.jpg",
+    descricao: "Durante a viagem inaugural do Titanic, Jack e Rose, de mundos diferentes, vivem uma intensa história de amor a bordo do famoso navio."
+  },
+  {
+    id: 5,
+    titulo: "Batman: O Cavaleiro das Trevas",
+    ano: 2008,
+    genero: "Ação",
+    nota: 9.0,
+    duracao: "2h 32min",
+    imagem: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    descricao: "Batman enfrenta o Coringa, um criminoso imprevisível que espalha o caos por Gotham e coloca a cidade diante de escolhas difíceis."
+  },
+  {
+    id: 6,
+    titulo: "Jurassic Park",
+    ano: 1993,
+    genero: "Aventura",
+    nota: 8.2,
+    duracao: "2h 7min",
+    imagem: "https://image.tmdb.org/t/p/w500/b1xCNnyrPebIc7EWNZIaDFq5gK.jpg",
+    descricao: "Cientistas conseguem trazer dinossauros de volta à vida em um parque temático. Porém, uma falha de segurança transforma a visita em uma luta pela sobrevivência."
+  },
+  {
+    id: 7,
+    titulo: "Harry Potter e a Pedra Filosofal",
+    ano: 2001,
+    genero: "Fantasia",
+    nota: 7.9,
+    duracao: "2h 32min",
+    imagem: "https://image.tmdb.org/t/p/w500/1go2A3gdQjaMuHWquybgoJlQRcX.jpg",
+    descricao: "Harry Potter descobre que é um bruxo e começa a estudar em Hogwarts, uma escola de magia onde faz amigos e descobre segredos sobre seu passado."
+  },
+  {
+    id: 8,
+    titulo: "Toy Story",
+    ano: 1995,
+    genero: "Animação",
+    nota: 8.0,
+    duracao: "1h 21min",
+    imagem: "https://image.tmdb.org/t/p/w500/uXDfjJbdP4ijW5hWSBrPrlKpxab.jpg",
+    descricao: "Woody, um boneco cowboy, precisa lidar com a chegada de Buzz Lightyear, um novo brinquedo que conquista a atenção de seu dono."
+  },
+  {
+    id: 9,
+    titulo: "Parasita",
+    ano: 2019,
+    genero: "Drama",
+    nota: 8.5,
+    duracao: "2h 12min",
+    imagem: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    descricao: "Uma família que enfrenta dificuldades financeiras consegue se aproximar de uma família rica. Aos poucos, uma situação inesperada começa a se desenvolver."
+  },
+  {
+    id: 10,
+    titulo: "Vingadores: Ultimato",
+    ano: 2019,
+    genero: "Ação",
+    nota: 8.3,
+    duracao: "3h 1min",
+    imagem: "https://image.tmdb.org/t/p/w500/or06FN3Dka5tukK1e9sl16pB3iy.jpg",
+    descricao: "Após uma grande derrota, os Vingadores restantes tentam encontrar uma maneira de reverter os acontecimentos e salvar o universo."
+  }
+];
 
-const BASE_URL = "https://api.themoviedb.org/3";
-const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+let generoSelecionado = "Todos";
+let favoritos = JSON.parse(localStorage.getItem("cineweekend-favoritos")) || [];
 
+// Elementos da página
 const listaFilmes = document.getElementById("lista-filmes");
 const listaGeneros = document.getElementById("lista-generos");
 const listaFavoritos = document.getElementById("lista-favoritos");
 const pesquisa = document.getElementById("pesquisa");
 const modal = document.getElementById("modal");
+const detalhes = document.getElementById("detalhes");
 
-let generoSelecionado = null;
-let tipoAtual = "popular";
-let paginaAtual = 1;
-let ultimaBusca = "";
-let filmesExibidos = [];
-let favoritos = carregarFavoritos();
-let numeroRequisicao = 0;
+// Mostra os filmes na tela
+function mostrarFilmes() {
+  if (!listaFilmes) return;
 
-// REQUISIÇÕES À API
+  const termo = pesquisa ? pesquisa.value.toLowerCase() : "";
 
-async function requisitar(endpoint) {
-    const separador = endpoint.includes("?") ? "&" : "?";
+  const filtrados = filmes.filter(filme => {
+    const combinaGenero =
+      generoSelecionado === "Todos" ||
+      filme.genero === generoSelecionado;
 
-    const resposta = await fetch(
-        `${BASE_URL}${endpoint}${separador}api_key=${API_KEY}&language=pt-BR`
-    );
+    const combinaPesquisa =
+      filme.titulo.toLowerCase().includes(termo);
 
-    if (!resposta.ok) {
-        throw new Error("Erro ao carregar dados do TMDB.");
-    }
+    return combinaGenero && combinaPesquisa;
+  });
 
-    return resposta.json();
+  listaFilmes.innerHTML = "";
+
+  if (filtrados.length === 0) {
+    listaFilmes.innerHTML = "<p>Nenhum filme encontrado.</p>";
+    return;
+  }
+
+  filtrados.forEach(filme => {
+    const card = document.createElement("div");
+    card.className = "filme-card";
+
+    card.innerHTML = `
+      <div class="filme-poster" onclick="abrirDetalhes(${filme.id})">
+        <img src="${filme.imagem}" alt="${filme.titulo}"
+             onerror="this.src='https://placehold.co/300x450/171717/ffffff?text=Poster+indisponivel'">
+        <span class="filme-nota">★ ${filme.nota.toFixed(1)}</span>
+      </div>
+
+      <div class="filme-info">
+        <h3>${filme.titulo}</h3>
+        <p>${filme.ano} • ${filme.genero}</p>
+        <button onclick="alternarFavorito(${filme.id})">
+          ${favoritos.includes(filme.id) ? "♥ Favorito" : "♡ Favoritar"}
+        </button>
+      </div>
+    `;
+
+    listaFilmes.appendChild(card);
+  });
 }
 
-// CARREGAR FILMES
+// Cria os filtros de gênero
+function carregarGeneros() {
+  if (!listaGeneros) return;
 
-async function carregarFilmes() {
-    const requisicaoAtual = ++numeroRequisicao;
+  const generos = [
+    "Todos",
+    ...new Set(filmes.map(filme => filme.genero))
+  ];
 
-    try {
-        let endpoint;
+  listaGeneros.innerHTML = "";
 
-        if (generoSelecionado) {
-            endpoint =
-                `/discover/movie?sort_by=popularity.desc&with_genres=${generoSelecionado}&page=${paginaAtual}`;
-        } else if (tipoAtual === "top") {
-            endpoint = `/movie/top_rated?page=${paginaAtual}`;
-        } else if (tipoAtual === "upcoming") {
-            endpoint = `/movie/upcoming?page=${paginaAtual}`;
-        } else {
-            endpoint = `/movie/popular?page=${paginaAtual}`;
-        }
-
-        const dados = await requisitar(endpoint);
-
-        if (requisicaoAtual !== numeroRequisicao) return;
-
-        if (paginaAtual === 1) {
-            filmesExibidos = dados.results || [];
-        } else {
-            filmesExibidos = [
-                ...filmesExibidos,
-                ...(dados.results || [])
-            ];
-        }
-
-        mostrarFilmes(filmesExibidos);
-        atualizarContador(dados.total_results);
-
-        document.getElementById("carregar-mais").style.display =
-            paginaAtual < dados.total_pages ? "block" : "none";
-
-    } catch (erro) {
-        console.error(erro);
-        if (requisicaoAtual === numeroRequisicao) {
-            listaFilmes.textContent =
-                "Não foi possível carregar os filmes. Verifique sua chave da API.";
-        }
-    }
-}
-
-// MOSTRAR FILMES
-
-function mostrarFilmes(filmes, destino = listaFilmes) {
-    destino.replaceChildren();
-
-    if (!filmes.length) {
-        const mensagem = document.createElement("p");
-        mensagem.className = "empty";
-        mensagem.textContent = "Nenhum filme encontrado.";
-        destino.appendChild(mensagem);
-        return;
-    }
-
-    filmes.forEach(filme => {
-        const card = document.createElement("article");
-        card.className = "movie-card";
-
-        const posterWrap = document.createElement("div");
-        posterWrap.className = "poster-wrap";
-
-        const imagem = document.createElement("img");
-        imagem.src = filme.poster_path
-            ? IMAGE_URL + filme.poster_path
-            : "https://placehold.co/400x600/202024/ffffff?text=Sem+poster";
-
-        imagem.alt = filme.title || "Pôster do filme";
-        imagem.loading = "lazy";
-
-        const nota = document.createElement("span");
-        nota.className = "rating";
-        nota.textContent =
-            `★ ${Number(filme.vote_average || 0).toFixed(1)}`;
-
-        const botaoFavorito = document.createElement("button");
-        botaoFavorito.className = "favorite-btn";
-        botaoFavorito.textContent = "♥";
-        botaoFavorito.setAttribute("aria-label", "Favoritar filme");
-
-        const salvo = favoritos.some(item => item.id === filme.id);
-
-        if (salvo) {
-            botaoFavorito.classList.add("saved");
-        }
-
-        botaoFavorito.addEventListener("click", evento => {
-            evento.stopPropagation();
-            alternarFavorito(filme);
-
-            botaoFavorito.classList.toggle(
-                "saved",
-                favoritos.some(item => item.id === filme.id)
-            );
-        });
-
-        posterWrap.append(imagem, nota, botaoFavorito);
-
-        const titulo = document.createElement("h3");
-        titulo.textContent = filme.title || "Filme sem título";
-
-        const ano = document.createElement("p");
-        ano.className = "year";
-        ano.textContent = filme.release_date
-            ? filme.release_date.slice(0, 4)
-            : "Ano não informado";
-
-        card.append(posterWrap, titulo, ano);
-
-        card.addEventListener("click", () => {
-            abrirDetalhes(filme.id);
-        });
-
-        destino.appendChild(card);
-    });
-}
-
-// CARREGAR GÊNEROS
-
-async function carregarGeneros() {
-    try {
-        const dados = await requisitar("/genre/movie/list");
-
-        listaGeneros.replaceChildren();
-
-        criarBotaoGenero("Todos os filmes", null);
-
-        dados.genres.forEach(genero => {
-            criarBotaoGenero(genero.name, genero.id);
-        });
-
-    } catch (erro) {
-        console.error(erro);
-        listaGeneros.textContent = "Erro ao carregar gêneros.";
-    }
-}
-
-function criarBotaoGenero(nome, id) {
+  generos.forEach(genero => {
     const botao = document.createElement("button");
-    botao.className = "genre-btn";
-    botao.textContent = nome;
 
-    if (generoSelecionado === id) {
-        botao.classList.add("active");
-    }
+    botao.textContent = genero;
+    botao.className =
+      genero === generoSelecionado ? "genero-ativo" : "";
 
-    const seta = document.createElement("span");
-    seta.className = "genre-arrow";
-    seta.textContent = "›";
-
-    botao.appendChild(seta);
-
-    botao.addEventListener("click", () => {
-        generoSelecionado = id;
-        tipoAtual = "popular";
-        paginaAtual = 1;
-
-        atualizarBotoesRapidos();
-        carregarGeneros();
-        carregarFilmes();
-
-        document.getElementById("catalogo").scrollIntoView({
-            behavior: "smooth"
-        });
-    });
+    botao.onclick = () => {
+      generoSelecionado = genero;
+      carregarGeneros();
+      mostrarFilmes();
+    };
 
     listaGeneros.appendChild(botao);
+  });
 }
 
-// CATEGORIAS RÁPIDAS
+// Abre os detalhes ao clicar no pôster
+function abrirDetalhes(id) {
+  const filme = filmes.find(item => item.id === id);
 
-function atualizarBotoesRapidos() {
-    document.querySelectorAll(".quick").forEach(botao => {
-        botao.classList.toggle(
-            "active",
-            botao.dataset.type === tipoAtual && !generoSelecionado
-        );
-    });
+  if (!filme || !modal || !detalhes) return;
+
+  detalhes.innerHTML = `
+    <div class="detalhe-filme">
+      <img src="${filme.imagem}" alt="${filme.titulo}"
+           onerror="this.src='https://placehold.co/300x450/171717/ffffff?text=Poster+indisponivel'">
+
+      <div>
+        <h2>${filme.titulo}</h2>
+        <p><strong>Ano:</strong> ${filme.ano}</p>
+        <p><strong>Gênero:</strong> ${filme.genero}</p>
+        <p><strong>Duração:</strong> ${filme.duracao}</p>
+        <p class="nota-detalhe">★ ${filme.nota.toFixed(1)} / 10</p>
+
+        <h3>Sinopse</h3>
+        <p>${filme.descricao}</p>
+
+        <button onclick="alternarFavorito(${filme.id})">
+          ${favoritos.includes(filme.id) ? "♥ Remover dos favoritos" : "♡ Adicionar aos favoritos"}
+        </button>
+      </div>
+    </div>
+  `;
+
+  modal.style.display = "flex";
 }
 
-document.querySelectorAll(".quick").forEach(botao => {
-    botao.addEventListener("click", () => {
-        tipoAtual = botao.dataset.type;
-        generoSelecionado = null;
-        paginaAtual = 1;
-
-        atualizarBotoesRapidos();
-        carregarGeneros();
-        carregarFilmes();
-    });
-});
-
-// PESQUISA
-
-let temporizadorBusca;
-
-pesquisa.addEventListener("input", () => {
-    clearTimeout(temporizadorBusca);
-
-    temporizadorBusca = setTimeout(async () => {
-        const termo = pesquisa.value.trim();
-
-        if (termo.length < 2) {
-            ultimaBusca = "";
-            paginaAtual = 1;
-            carregarFilmes();
-            return;
-        }
-
-        ultimaBusca = termo;
-        const requisicaoAtual = ++numeroRequisicao;
-
-        try {
-            const dados = await requisitar(
-                `/search/movie?query=${encodeURIComponent(termo)}`
-            );
-
-            if (
-                requisicaoAtual !== numeroRequisicao ||
-                termo !== ultimaBusca
-            ) return;
-
-            filmesExibidos = dados.results || [];
-
-            mostrarFilmes(filmesExibidos);
-            atualizarContador(dados.total_results);
-
-            document.getElementById("carregar-mais").style.display = "none";
-
-        } catch (erro) {
-            console.error(erro);
-            listaFilmes.textContent = "Erro ao pesquisar filmes.";
-        }
-
-    }, 400);
-});
-
-// CARREGAR MAIS
-
-document.getElementById("carregar-mais").addEventListener("click", () => {
-    if (ultimaBusca) return;
-
-    paginaAtual++;
-    carregarFilmes();
-});
-
-// DETALHES E TRAILER
-
-async function abrirDetalhes(id) {
-    try {
-        const [filme, videos] = await Promise.all([
-            requisitar(`/movie/${id}`),
-            requisitar(`/movie/${id}/videos`)
-        ]);
-
-        const detalhes = document.getElementById("detalhes");
-        detalhes.replaceChildren();
-
-        const layout = document.createElement("div");
-        layout.className = "detail-layout";
-
-        const imagem = document.createElement("img");
-        imagem.className = "detail-poster";
-        imagem.src = filme.poster_path
-            ? IMAGE_URL + filme.poster_path
-            : "https://placehold.co/400x600/202024/ffffff?text=Sem+poster";
-
-        imagem.alt = filme.title;
-
-        const informacoes = document.createElement("div");
-        informacoes.className = "detail-info";
-
-        const titulo = document.createElement("h2");
-        titulo.textContent = filme.title;
-
-        const meta = document.createElement("div");
-        meta.className = "detail-meta";
-        meta.textContent =
-            `★ ${Number(filme.vote_average || 0).toFixed(1)} | ` +
-            `${filme.release_date || "Sem data"} | ` +
-            `${filme.runtime || "?"} min`;
-
-        const sinopse = document.createElement("p");
-        sinopse.className = "detail-overview";
-        sinopse.textContent =
-            filme.overview || "Sinopse não disponível.";
-
-        const generos = document.createElement("p");
-        generos.className = "detail-genres";
-        generos.textContent =
-            "Gêneros: " +
-            (filme.genres || []).map(g => g.name).join(", ");
-
-        informacoes.append(titulo, meta, sinopse, generos);
-
-        const trailer = videos.results.find(video =>
-            video.site === "YouTube" &&
-            video.type === "Trailer"
-        );
-
-        if (trailer) {
-            const link = document.createElement("a");
-            link.className = "trailer-link";
-            link.href = `https://www.youtube.com/watch?v=${trailer.key}`;
-            link.target = "_blank";
-            link.rel = "noopener noreferrer";
-            link.textContent = "▶ ASSISTIR TRAILER";
-
-            informacoes.appendChild(link);
-        }
-
-        layout.append(imagem, informacoes);
-        detalhes.appendChild(layout);
-
-        modal.classList.add("open");
-
-    } catch (erro) {
-        console.error(erro);
-        alert("Não foi possível abrir os detalhes deste filme.");
-    }
-}
-
-// FECHAR MODAL
-
+// Fecha a janela de detalhes
 function fecharModal() {
-    modal.classList.remove("open");
+  if (modal) modal.style.display = "none";
 }
 
-document.getElementById("fechar-modal").addEventListener(
-    "click",
-    fecharModal
-);
+// Adiciona ou remove favoritos
+function alternarFavorito(id) {
+  if (favoritos.includes(id)) {
+    favoritos = favoritos.filter(item => item !== id);
+  } else {
+    favoritos.push(id);
+  }
 
-modal.addEventListener("click", evento => {
+  localStorage.setItem(
+    "cineweekend-favoritos",
+    JSON.stringify(favoritos)
+  );
+
+  mostrarFilmes();
+  mostrarFavoritos();
+
+  if (modal && modal.style.display === "flex") {
+    abrirDetalhes(id);
+  }
+}
+
+// Mostra a lista de favoritos
+function mostrarFavoritos() {
+  if (!listaFavoritos) return;
+
+  const filmesFavoritos = filmes.filter(
+    filme => favoritos.includes(filme.id)
+  );
+
+  listaFavoritos.innerHTML = "";
+
+  filmesFavoritos.forEach(filme => {
+    const card = document.createElement("div");
+    card.className = "filme-card";
+
+    card.innerHTML = `
+      <div class="filme-poster" onclick="abrirDetalhes(${filme.id})">
+        <img src="${filme.imagem}" alt="${filme.titulo}">
+        <span class="filme-nota">★ ${filme.nota.toFixed(1)}</span>
+      </div>
+      <div class="filme-info">
+        <h3>${filme.titulo}</h3>
+        <p>${filme.ano} • ${filme.genero}</p>
+        <button onclick="alternarFavorito(${filme.id})">
+          ♥ Remover
+        </button>
+      </div>
+    `;
+
+    listaFavoritos.appendChild(card);
+  });
+}
+
+// Pesquisa de filmes
+if (pesquisa) {
+  pesquisa.addEventListener("input", mostrarFilmes);
+}
+
+// Fecha o modal ao clicar fora dele
+if (modal) {
+  modal.addEventListener("click", evento => {
     if (evento.target === modal) {
-        fecharModal();
+      fecharModal();
     }
-});
-
-document.addEventListener("keydown", evento => {
-    if (evento.key === "Escape") {
-        fecharModal();
-    }
-});
-
-// FAVORITOS
-
-function carregarFavoritos() {
-    try {
-        return JSON.parse(
-            localStorage.getItem("cineweekend-favoritos")
-        ) || [];
-    } catch {
-        return [];
-    }
+  });
 }
 
-function salvarFavoritos() {
-    localStorage.setItem(
-        "cineweekend-favoritos",
-        JSON.stringify(favoritos)
-    );
-}
-
-function alternarFavorito(filme) {
-    const existe = favoritos.some(item => item.id === filme.id);
-
-    if (existe) {
-        favoritos = favoritos.filter(item => item.id !== filme.id);
-    } else {
-        favoritos.push(filme);
-    }
-
-    salvarFavoritos();
-    mostrarFilmes(favoritos, listaFavoritos);
-}
-
-// CONTADOR
-
-function atualizarContador(total) {
-    document.getElementById("contador").textContent =
-        total
-            ? `${Number(total).toLocaleString("pt-BR")} filmes`
-            : "";
-}
-
-// BOTÃO DO BANNER
-
-document.getElementById("explorar").addEventListener("click", () => {
-    document.getElementById("catalogo").scrollIntoView({
-        behavior: "smooth"
-    });
-});
-
-// INICIAR
-
-async function iniciarSite() {
-    mostrarFilmes(favoritos, listaFavoritos);
-
-    if (API_KEY === "SUA_CHAVE_TMDB") {
-        listaFilmes.textContent =
-            "Adicione sua chave da API TMDB no arquivo script.js para carregar os filmes.";
-        return;
-    }
-
-    await Promise.all([
-        carregarGeneros(),
-        carregarFilmes()
-    ]);
-}
-
-iniciarSite();
+// Inicialização do catálogo
+carregarGeneros();
+mostrarFilmes();
+mostrarFavoritos();
